@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="nGmail">
+<head>
+  <title>ReMail</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <span id="logo"><img src="images/logo.png"></span>
+    <div class="drop-down account-nav">
+      <img class="avatar" src="images/avatars/me.jpg">
+      <ul class="align-right">
+        <li><a href>Mark Brown &lt;markbrown4@gmail.com&gt;</a></li>
+        <li><a href>Mark Brown &lt;mark@inspire9.com&gt;</a></li>
+        <li><a href>Mark Brown &lt;mark@adioso.com&gt;</a></li>
+      </ul>
+    </div>
+    <form class="search">
+      <input name="query">
+      <button type="submit" class="primary-btn">
+        <span class="icon-search"></span>
+      </button>
+    </form>
+  </div>
+  <div id="sub-header">
+    <h1 class="app-name"><span>n</span>Gmail</h1>
+    <div class="paging">
+      <strong>1-2</strong>
+      of
+      <strong>2</strong>
+      <div class="split-btn">
+        <a href class="btn btn-mini" title="Previous"><img src="images/icons/prev.png"></a>
+        <a href class="btn btn-mini" title="Next"><img src="images/icons/next.png"></a>
+      </div>
+    </div>
+    <a href class="btn" title="Back to Inbox"><img src="images/icons/back.png"></a>
+    <div class="drop-down btn">
+      <a href class="check"></a>
+      <img src="images/icons/down.png">
+      <ul>
+        <li><a href>All</a></li>
+        <li><a href>None</a></li>
+        <li><a href>Read</a></li>
+        <li><a href>Unread</a></li>
+      </ul>
+    </div>
+    <div class="split-btn">
+      <a href class="btn" title="Archive"><img src="images/icons/archive.png"></a>
+      <a href class="btn" title="Report Spam"><img src="images/icons/spam.png"></a>
+      <a href class="btn" title="Delete"><img src="images/icons/delete.png"></a>
+    </div>
+    <a href class="btn"><img src="images/icons/refresh.png"></a>
+  </div>
+  <div id="nav">
+    <a href class="compose">COMPOSE</a>
+    <ul>
+      <li class="active"><a href>Inbox</a></li>
+      <li><a href>Sent Mail</a></li>
+      <li><a href>Drafts</a></li>
+      <li><a href>Trash</a></li>
+    </ul>
+  </div>
+  <div id="content">
+    <div id="comments-demo"></div>
+    <ul id="threads">
+      <li class="unread">
+        <a href>
+          <time>Aug 30</time>
+          <span class="check"></span>
+          <span class="people">
+            <span class="name unread">Beatrix Kiddo</span>
+          </span>
+          <span class="subject">My fox force five joke</span>
+          <span class="body">- Vincent, You still wanna hear it?</span>
+        </a>
+      </li>
+      <li class="unread">
+        <a href>
+          <time>Aug 27</time>
+          <span class="check"></span>
+          <span class="people">
+            <span class="name unread">Budd</span>,
+            <span class="name">me</span>
+            <span>(3)</span>
+          </span>
+          <span class="subject">RE: Kiddo</span>
+          <span class="body">- That woman, deserves her revenge and... We deserve to die. But then again, so does she. So, I guess we'll just see. Won't we?</span>
+        </a>
+      </li>
+      <li>
+        <a href>
+          <time>Aug 27</time>
+          <span class="check"></span>
+          <span class="people">
+            <span class="name">Beatrix</span>,
+            <span class="name">me</span>
+            <span>(2)</span>
+          </span>
+          <span class="subject">RE: Bill</span>
+          <span class="body">- You must have big rats if you need Hattori Hanzo's steel.</span>
+        </a>
+      </li>
+    </ul>
+
+    <div id="thread" style="display: none">
+      <h1>Kiddo</h1>
+      <ul class="messages">
+        <li>
+          <div class="thread-tools">
+            <time>Aug 27 (4 days ago)</time>
+            <div class="split-btn">
+              <a href class="btn"><img src="images/icons/reply.png"></a>
+              <div class="drop-down btn btn-mini">
+                <img src="images/icons/down.png">
+                <ul class="align-right">
+                  <li><a href>Reply</a></li>
+                  <li><a href>Reply all</a></li>
+                  <li><a href>Forward</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <img class="avatar" src="images/avatars/budd.jpg">
+          <div class="from">
+            <span class="name">Budd </span>
+            <span class="email">&lt;budlight@gmail.com&gt;</span>
+          </div>
+          <div class="to">to
+            <span>me</span>
+          </div>
+          <div class="body">I don't dodge guilt and I don't Jew out of paying my comeuppance.</div>
+        </li>
+        <li>
+          <div class="thread-tools">
+            <time>Aug 27 (4 days ago)</time>
+            <div class="split-btn">
+              <a href class="btn"><img src="images/icons/reply.png"></a>
+              <div class="drop-down btn btn-mini">
+                <img src="images/icons/down.png">
+                <ul class="align-right">
+                  <li><a href>Reply</a></li>
+                  <li><a href>Reply all</a></li>
+                  <li><a href>Forward</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <img class="avatar" src="images/avatars/me.jpg">
+          <div class="from">
+            <span class="name">Mark </span>
+            <span class="email">&lt;markbrown4@gmail.com&gt;</span>
+          </div>
+          <div class="to">to
+            <span>Budd</span>
+          </div>
+          <div class="body">Can't we just... forget the past?</div>
+        </li>
+        <li class="active">
+          <div class="thread-tools">
+            <time>Aug 27 (4 days ago)</time>
+            <div class="split-btn">
+              <a class="btn" href><img src="images/icons/reply.png"></a>
+              <div class="drop-down btn btn-mini">
+                <img src="images/icons/down.png">
+                <ul class="align-right">
+                  <li><a href>Reply</a></li>
+                  <li><a href>Reply all</a></li>
+                  <li><a href>Forward</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <img class="avatar" src="images/avatars/budd.jpg">
+          <div class="from">
+            <span class="name">Budd </span>
+            <span class="email">&lt;budlight@gmail.com&gt;</span>
+          </div>
+          <div class="to">to
+            <span>me</span>
+          </div>
+          <div class="body"><p>That woman, deserves her revenge and...<br><br>We deserve to die. But then again, so does she.<br><br>So, I guess we'll just see. Won't we?</p></div>
+        </li>
+      </ul>
+      <div class="reply">
+        <img src="images/avatars/me.jpg" class="avatar">
+        <div class="reply-box">
+          <p>Click here to <a href>Reply</a>, <a href>Reply to all</a> or <a href>Forward</a></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div id="compose" style="display: none">
+  <div class="header">
+    <a class="close">×</a>
+    <h2>New Message</h2>
+  </div>
+  <div>
+    <div>
+      <input class="full" name="recipients" placeholder="Recipients">
+    </div>
+    <div style="display: none">
+      <div class="input">
+        <label for="message_to">To</label>
+        <div class="fit">
+          <input id="message_to" class="full">
+        </div>
+      </div>
+      <div class="input">
+        <label for="message_cc">Cc</label>
+        <div class="fit">
+          <input id="message_cc" class="full">
+        </div>
+      </div>
+      <div class="input">
+        <label for="message_bcc">Bcc</label>
+        <div class="fit">
+          <input id="message_bcc" class="full">
+        </div>
+      </div>
+      <div>
+        <label>From</label>
+        <a href class="bcc">Bcc</a>
+        <a href class="cc">Cc</a>
+        <drop-down class="drop-down from-address">
+          <span>Mark Brown &lt;markbrown4@gmail.com&gt;</span>
+          <img src="images/icons/down.png">
+          <ul class="align-right">
+            <li><a href>Mark Brown &lt;markbrown4@gmail.com&gt;</a></li>
+            <li><a href>Mark Brown &lt;mark@inspire9.com&gt;</a></li>
+            <li><a href>Mark Brown &lt;mark@adioso.com&gt;</a></li>
+          </ul>
+        </drop-down>
+      </div>
+    </div>
+  </div>
+  <div>
+    <input id="message_subject" class="full" placeholder="Subject">
+  </div>
+  <div>
+    <textarea id="message_body" placeholder="Body"></textarea>
+  </div>
+  <div class="footer">
+    <input type="submit" class="btn primary-btn" value="Send">
+  </div>
+</div>
+<div class="flash" style="display: none">
+  <div class="inner">Sending...</div>
+</div>
+<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+<script src="bower_components/react/react.js"></script>
+<script src="js/app.js"></script>
+<script>
+window.currentUser = {
+  email: 'markbrown4@gmail.com',
+  first_name: 'Mark',
+  last_name: 'Brown',
+  avatar: 'me.jpg',
+  accounts: [{
+    id: 1,
+    email: "markbrown4@gmail.com",
+    first_name: "Mark",
+    last_name: "Brown",
+    avatar: "me.jpg"
+  },{
+    id: 2,
+    email: "mark@inspire9.com",
+    first_name: "Mark",
+    last_name: "Brown",
+    avatar: "me.jpg"
+  },{
+    id: 3,
+    email: "mark@adioso.com",
+    first_name: "Mark",
+    last_name: "Brown",
+    avatar: "me.jpg"
+  }]
+};
+</script>
+</body>
+</html>

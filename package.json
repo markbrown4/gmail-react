@@ -1,0 +1,26 @@
+{
+  "name": "gmail-react",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bower": "*",
+    "gulp": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-coffee": "*",
+    "gulp-coffee-react-transform": "0.0.2",
+    "gulp-react": "*",
+    "gulp-sass": "*",
+    "gulp-uglify": "*",
+    "gulp-util": "*",
+    "http-server": "*"
+  },
+  "scripts": {
+    "postinstall": "bower install",
+    "prestart": "npm install",
+    "assets": "gulp",
+    "start": "http-server ./app -a 0.0.0.0 -p 8000"
+  }
+}

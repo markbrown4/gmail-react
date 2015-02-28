@@ -1,0 +1,19 @@
+{
+  "name": "gmail-angular",
+  "version": "0.0.0",
+  "authors": [
+    "Mark Brown <markbrown4@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.7.0",
+    "react": "~0.12.2"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "id": 2,
+  "messages": [{
+    "id": 3,
+    "from": {
+      "first_name": "Budd",
+      "last_name": "",
+      "email": "budlight@gmail.com",
+      "avatar": "budd.jpg"
+    },
+    "to": [{
+      "first_name": "Mark",
+      "last_Name": "Brown",
+      "email": "markbrown4@gmail.com"
+    }],
+    "unread": false,
+    "subject": "Kiddo",
+    "snippet": "I don't dodge guilt and I don't Jew out of paying my comeuppance.",
+    "body": "<p>I don't dodge guilt and I don't Jew out of paying my comeuppance.</p>",
+    "created_at": 1409068800000
+  },{
+    "id": 4,
+    "from": {
+      "first_name": "Mark",
+      "last_Name": "Brown",
+      "email": "markbrown4@gmail.com",
+      "avatar": "me.jpg"
+    },
+    "to": [{
+      "first_name": "Budd",
+      "last_name": "",
+      "email": "budlight@gmail.com"
+    }],
+    "unread": false,
+    "subject": "RE: Kiddo",
+    "snippet": "Can't we just... forget the past?",
+    "body": "<p>Can't we just... forget the past?</p>",
+    "created_at": 1409068800000
+  },{
+    "id": 5,
+    "from": {
+      "first_name": "Budd",
+      "last_name": "",
+      "email": "budlight@gmail.com",
+      "avatar": "budd.jpg"
+    },
+    "to": [{
+      "first_name": "Mark",
+      "last_Name": "Brown",
+      "email": "markbrown4@gmail.com"
+    }],
+    "unread": true,
+    "subject": "RE: Kiddo",
+    "snippet": "That woman, deserves her revenge and... We deserve to die. But then again, so does she. So, I guess we'll just see. Won't we?",
+    "body": "<p>That woman, deserves her revenge and...<br><br>We deserve to die. But then again, so does she.<br><br>So, I guess we'll just see. Won't we?</p>",
+    "created_at": 1409068800000
+  }]
+}

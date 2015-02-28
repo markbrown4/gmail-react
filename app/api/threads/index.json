@@ -1,0 +1,65 @@
+[
+  {
+    "id": 3,
+    "message_count": 1,
+    "unread": true,
+    "participants": [
+      {
+        "first_name": "Beatrix",
+        "last_name": "Kiddo",
+        "email": "blackmamba@gmail.com",
+        "unread": true
+      }
+    ],
+    "last_message": {
+      "subject": "My fox force five joke",
+      "snippet": "Vincent, You still wanna hear it?",
+      "created_at": 1409366556530
+    }
+  },
+  {
+    "id": 2,
+    "message_count": 3,
+    "unread": true,
+    "participants": [
+      {
+        "first_name": "Budd",
+        "last_name": "",
+        "email": "blackmamba@gmail.com",
+        "unread": true
+      },
+      {
+        "first_name": "Mark",
+        "last_Name": "Brown",
+        "email": "markbrown4@gmail.com"
+      }
+    ],
+    "last_message": {
+      "subject": "RE: Kiddo",
+      "snippet": "That woman, deserves her revenge and... We deserve to die. But then again, so does she. So, I guess we'll just see. Won't we?",
+      "created_at": 1409068800000
+    }
+  },
+  {
+    "id": 1,
+    "message_count": 2,
+    "unread": false,
+    "participants": [
+      {
+        "first_name": "Beatrix",
+        "last_name": "Kiddo",
+        "email": "blackmamba@gmail.com"
+      },
+      {
+        "first_name": "Mark",
+        "last_Name": "Brown",
+        "email": "markbrown4@gmail.com"
+      }
+    ],
+    "last_message": {
+      "subject": "RE: Bill",
+      "snippet": "You must have big rats if you need Hattori Hanzo's steel.",
+      "created_at": 1409068800000
+    }
+  }
+]

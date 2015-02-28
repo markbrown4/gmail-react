@@ -1,0 +1,40 @@
+{
+  "id": 1,
+  "messages": [{
+    "id": 1,
+    "from": {
+      "first_name": "Beatrix",
+      "last_name": "Kiddo",
+      "email": "blackmamba@gmail.com",
+      "avatar": "uma.jpg"
+    },
+    "to": [{
+      "first_name": "Mark",
+      "last_Name": "Brown",
+      "email": "markbrown4@gmail.com"
+    }],
+    "unread": false,
+    "subject": "Bill",
+    "snippet": "I have vermin to kill.",
+    "body": "<p>I have vermin to kill.</p>",
+    "created_at": 1409068800000
+  },{
+    "id": 2,
+    "from": {
+      "first_name": "Mark",
+      "last_Name": "Brown",
+      "email": "markbrown4@gmail.com",
+      "avatar": "me.jpg"
+    },
+    "to": [{
+      "first_name": "Beatrix",
+      "last_name": "Kiddo",
+      "email": "blackmamba@gmail.com"
+    }],
+    "unread": false,
+    "subject": "RE: Bill",
+    "snippet": "You must have big rats if you need Hattori Hanzo's steel.",
+    "body": "<p>You must have big rats if you need Hattori Hanzo's steel.</p>",
+    "created_at": 1409068800000
+  }]
+}
