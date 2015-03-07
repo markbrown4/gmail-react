@@ -113,4 +113,32 @@ ThreadItem = React.createClass
     </li>
 ```
 
-*componentDidMount* is run when our ThreadList is initially rendered, it fetches data from the api and sets it state causing it to re-render. ThreadList passes this data through an attribute which ThreadItem can access through props
+*componentDidMount* is run when our ThreadList is initially rendered, it fetches data from the api and calls setState causing it to re-render. ThreadList then passes this data through an attribute which ThreadItem can access through props.
+
+### Toggling state
+
+Let's wire up our checkboxes to toggle a *selected* state on our threads.
+```
+ThreadItem = React.createClass
+  getInitialState: ->
+    selected: false
+
+  select: (event)->
+    event.preventDefault()
+
+    @setState selected: !@state.selected
+
+  render: ->
+    ...
+    <span className="check" onClick={@select}></span>
+    ...
+```
+
+React supports all of the usual event listeners, interestingly touch events must be explicitly enabled.
+http://facebook.github.io/react/docs/events.html
+
+### The magic
+
+If you use your browsers web inspector and watch what happens when you click the checkbox you'll notice that the only thing that changes in the DOM is a single className on the <li>'s.  This is interesting because the render method has been triggered causing the entire component to be re-rendered yet the document remains unchanged except for the specific parts that require updates.
+
+It's this quality that makes react special and it comes with a number of benefits. Because large chunks of the DOM aren't changing when state changes it's faster, allows for css transitions and form elements aren't replaced while being interacted with.

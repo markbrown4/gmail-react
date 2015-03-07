@@ -18,16 +18,25 @@ ThreadList = React.createClass
     </ul>
 
 ThreadItem = React.createClass
+  getInitialState: ->
+    selected: false
+
+  select: (event)->
+    event.preventDefault()
+
+    @setState selected: !@state.selected
+
   render: ->
     thread = @props.thread
     lastMessage = thread.last_message
-    console.log thread.unread
-    threadClasses = React.addons.classSet(unread: thread.unread)
+    threadClasses = React.addons.classSet
+      unread: thread.unread
+      selected: @state.selected
 
     <li className={ threadClasses }>
       <a>
         <time>{ lastMessage.created_at }</time>
-        <span className="check"></span>
+        <span className="check" onClick={@select}></span>
         <span className="people">
           { for person in thread.participants
             <span className="name unread">{ person.first_name } { person.last_name }</span>
