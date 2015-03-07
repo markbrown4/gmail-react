@@ -1,5 +1,5 @@
 {
-  "name": "gmail-angular",
+  "name": "gmail-react",
   "version": "0.0.0",
   "authors": [
     "Mark Brown <markbrown4@gmail.com>"
@@ -14,6 +14,7 @@
   ],
   "dependencies": {
     "underscore": "~1.7.0",
-    "react": "~0.12.2"
+    "react": "~0.12.2",
+    "jquery": "~2.1.3"
   }
 }

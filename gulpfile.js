@@ -1,12 +1,12 @@
 // run 'npm install' and 'gulp'
 
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var coffeeReact = require('gulp-coffee-react-transform');
+var gulp =   require('gulp');
+var gutil =  require('gulp-util');
+var cjsx =   require('gulp-cjsx');
 var coffee = require('gulp-coffee');
-var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
+var sass =   require('gulp-sass');
 var uglify = require('gulp-uglify');
+var autoprefixer = require('gulp-autoprefixer');
 
 var paths = {
   styles: {
@@ -14,7 +14,7 @@ var paths = {
     dest: 'app/css'
   },
   scripts: {
-    src:  'app/coffee/**/*.coffee',
+    src:  'app/coffee/**/*.cjsx',
     dest: 'app/js'
   }
 };
@@ -28,10 +28,7 @@ gulp.task('styles', function() {
 
 gulp.task('scripts', function() {
   return gulp.src(paths.scripts.src)
-    .pipe(coffeeReact())
-    .pipe(coffee())
-    .on('error', gutil.log)
-    .on('error', gutil.beep)
+    .pipe(cjsx({bare: true}).on('error', gutil.log))
     .pipe(gulp.dest(paths.scripts.dest));
 });
 

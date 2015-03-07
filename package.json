@@ -9,7 +9,7 @@
     "bower": "*",
     "gulp": "*",
     "gulp-autoprefixer": "*",
-    "gulp-coffee": "*",
+    "gulp-cjsx": "^2.0.0",
     "gulp-coffee-react-transform": "0.0.2",
     "gulp-react": "*",
     "gulp-sass": "*",
