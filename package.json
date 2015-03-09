@@ -11,6 +11,7 @@
     "gulp-autoprefixer": "*",
     "gulp-cjsx": "^2.0.0",
     "gulp-coffee-react-transform": "0.0.2",
+    "gulp-concat": "^2.5.2",
     "gulp-react": "*",
     "gulp-sass": "*",
     "gulp-uglify": "*",
