@@ -17,8 +17,8 @@ ThreadListItem = React.createClass
         <time>{ lastMessage.created_at }</time>
         <span className="check" onClick={@toggleSelected}></span>
         <span className="people">
-          { for person in @props.participants
-            <span className="name unread">{ person.first_name } { person.last_name }</span>
+          { for person, i in @props.participants
+            <span key={"thread-#{@props.id}-#{i}"} className="name unread">{ person.first_name } { person.last_name }</span>
           }
         </span>
         <span className="subject">{ lastMessage.subject }</span>
