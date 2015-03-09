@@ -3,7 +3,7 @@ A React.js tutorial building out a Gmail clone.
 
 http://webdevrefinery.com/forums/topic/13835-reactjs/
 
-In this tutorial we'll be looking at how to build rich client-side apps using React.js, Facebook's open source tool for rendering Views that's been generating a heap of noise in the community lately. No prior knowledge of React is necessary.
+Facebook's open source tool for rendering Views that's been generating a heap of noise in the community lately. No prior knowledge of React is necessary.
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@ Hit http://localhost:8000/ in your favourite browser and you should see a bunch 
 Let's remove the entire `<ul id="threads">` element from *index.html* and make a React component to build it dynamically.
 
 ```coffee
-# app.cjsx
+# thread_list.cjsx
 ThreadList = React.createClass
   render: ->
     <ul id="threads">
@@ -49,6 +49,7 @@ React.render <ThreadList />, document.getElementById('content')
 
 At it's simplest *React.createClass* takes an object with a render function and returns a single root element.
 
+### JSX
 JSX compiles a mix of JavaScript and HTML into React calls, e.g.
 
 ```jsx
@@ -59,7 +60,7 @@ JSX compiles a mix of JavaScript and HTML into React calls, e.g.
 React.createElement("span", {"className": "subject"}, text)
 ```
 
-This is simpler than writing the raw React calls and **C**JSX allows us to use CoffeeScript within curly braces {} rather than JavaScript.
+**C**JSX allows us to use CoffeeScript within curly braces {} rather than JavaScript.
 
 Notice we're using **className** in the place of class, that's because React uses the DOM's property names rather than the HTML attribute names for building these nodes.
 
@@ -71,10 +72,10 @@ Components can render other components.
 ThreadList = React.createClass
   render: ->
     <ul id="threads">
-      <ThreadItem />
+      <ThreadListItem />
     </ul>
 
-ThreadItem = React.createClass
+ThreadListItem = React.createClass
   render: ->
     <li className="unread">
       <a>
@@ -104,11 +105,10 @@ ThreadList = React.createClass
     threads: []
 
   componentDidMount: ->
-    $.ajax(
+    reqwest
       url: '/api/threads/index.json'
-      cache: false
-    ).then (threads)=>
-      @setState threads: threads
+      success: (threads)=>
+        @setState threads: threads
 
   render: ->
     <ul id="threads">
@@ -139,7 +139,7 @@ ThreadItem = React.createClass
     </li>
 ```
 
-*componentDidMount* is run when our ThreadList is initially rendered, it fetches data from the api and calls setState causing it to re-render. ThreadList then passes this data through an attribute which ThreadItem can access through props.
+*componentDidMount* is one of Reacts [Lifecycle methods](http://facebook.github.io/react/docs/component-specs.html) that is run just after a component is first rendered in the DOM.  Our ThreadList fetches data from the api, calls setState which re-renders it, this state is passed down to ThreadItem through an attribute(thread) which ThreadItem can access through props(props.thread).
 
 ## Toggling state
 
@@ -148,7 +148,7 @@ Let's wire up our checkboxes to toggle a *selected* state on our threads.
 React supports all of the usual events, we can listen for them in our components, toggle state and re-render.  http://facebook.github.io/react/docs/events.html
 
 ```coffee
-ThreadItem = React.createClass
+ThreadListItem = React.createClass
   getInitialState: ->
     selected: false
 
@@ -184,7 +184,7 @@ A components render method should not have any side effects, it should take stat
 Let's move our attention to the `<div id="sub-header">` element next, when selecting threads we want our SubHeader to show us tools we can use on that selection.  We also want checking the box in the sub-header to change state on our threads.
 This tells us we need a component above our ThreadList and SubHeader to maintain this shared state and that we should pull it out of ThreadItem's state and instead pass it from Inbox all the way down to Thread through props.
 
-React encourages us to break down our interface into a hierarchy of small components that take data and state and render. We'll make an Inbox component that holds the state for selected threads and passes it down to the SubHeader and ThreadList components through props.
+React encourages us to break down our interface into a hierarchy of small components that take data and state and render. We'll make an Inbox component that holds the state for selected threads and will pass it down to the SubHeader and ThreadList components through props.
 
 ```
 <Inbox>
@@ -200,14 +200,102 @@ React encourages us to break down our interface into a hierarchy of small compon
 
 ### Flux
 
-A pattern of single directional data flow.
+This is where things get more tricky, Flux is a pattern of single directional data flow.
 
-Action > Dispatcher > Store > View
+**Action > Dispatcher > Store > View**
 
-Views trigger an Action
+A View initiates an Action
 Actions dispatch an event with a name and payload
-Stores listen for those events, update themselves and emit that they have changed
-Views that rely on those stores listen for changes and fetch the data that they need and re-render
+Stores are our Models/Collections, they listen for dispatched events, update themselves and emit that they have changed
+Controller-Views are components that listen for changes on the store, fetch any data they need and pass it down to child components
 
 Our **Inbox** component is an example of a Controller-View, it's a regular component that has the special job of fetching data from our Store wanting to know when it's data changes so it can re-render and flow it's data down through to clild components.
 
+#### A basic Flux implementation
+
+*Perhaps Daniel15 can tell us if we're doing anything that isn't The Flux Way™ and we can adapt it.*
+
+A View initiates an Action
+```coffee
+# components/thread_list_item.cjsx
+ThreadListItem = React.createClass
+  select: (event)->
+    event.preventDefault()
+
+    InboxActions.toggleSelected(@props.id)
+
+  render: ->
+    <span className="check" onClick={@select}></span>
+
+```
+
+Actions dispatch an event with a name and payload
+```
+# actions.coffee
+@InboxActions =
+  toggleSelected: (id)->
+   Dispatcher.trigger 'toggle-selected', id
+
+```
+
+Stores are our Models/Collections, they listen for dispatched events, update themselves and emit that they have changed
+```
+# thread_store.coffee
+@ThreadStore =
+  threads: []
+
+  getState: ->
+    threads: @threads
+
+  toggleSelected: (id)->
+    thread = _.find @threads, (thread)-> thread.id == id
+    thread.selected = !thread.selected
+
+    @trigger 'change'
+
+MicroEvent.mixin(ThreadStore)
+
+Dispatcher.register
+  'toggle-selected': (id)-> ThreadStore.toggleSelected(id)
+```
+
+Controller-Views are components that listen for changes on the store, fetch any data they need and pass it down to child components
+
+```
+# components/inbox.cjsx
+Inbox = React.createClass
+  getInitialState: ->
+    ThreadStore.getState()
+
+  componentDidMount: ->
+    ThreadStore.bind 'change', @onChange
+
+  componentWillUnmount: ->
+    ThreadStore.unbind 'change', @onChange
+
+  onChange: ->
+    @setState ThreadStore.getState()
+
+  render: ->
+    <div id="wrapper">
+      <Header />
+      <SubHeader {...@state} />
+      <Nav />
+      <div id="content">
+        <ThreadList {...@state} />
+      </div>
+    </div>
+```
+
+The Dispatcher we'll be using is just an event registry, Stores *register* events they want to know about, Actions *trigger* those events.
+```coffee
+# dispatcher.coffee
+@Dispatcher =
+  register: (events)->
+    for eventName, callback of events
+      @bind eventName, callback
+
+MicroEvent.mixin(Dispatcher)
+```
+
+* The [Facebook Dispatcher](http://facebook.github.io/flux/docs/actions-and-the-dispatcher.html#content) uses Promises, runs callbacks in order and supports control flow with *waitFor* e.g. Store A can wait Store B's callbacks to run before it's own.

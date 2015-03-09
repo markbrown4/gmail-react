@@ -7,5 +7,5 @@
 
 MicroEvent.mixin(MessageStore)
 
-Dispatcher.registerAll
+Dispatcher.register
   'compose-message': (id)-> MessageStore.composeNew()

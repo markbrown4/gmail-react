@@ -15,9 +15,9 @@ Inbox = React.createClass
   render: ->
     <div id="wrapper">
       <Header />
-      <SubHeader />
+      <SubHeader {...@state} />
       <Nav />
       <div id="content">
-        <ThreadList threads={@state.threads} />
+        <ThreadList {...@state} />
       </div>
     </div>

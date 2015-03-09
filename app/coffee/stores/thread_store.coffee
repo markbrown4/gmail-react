@@ -1,15 +1,45 @@
 
 @ThreadStore =
   threads: []
-
-  refresh: ->
-    $.ajax(url: '/api/threads/index.json', cache: false)
-      .then (threads)=>
-        @threads = threads
-        @trigger 'change'
+  paging: {}
 
   getState: ->
     threads: @threads
+    paging: @paging
+    allSelected: @allSelected()
+    someSelected: @someSelected()
+
+  someSelected: ->
+    selected = false
+    for thread in @threads
+      selected = true if thread.selected
+
+    selected
+
+  noneSelected: ->
+    !@someSelected()
+
+  allSelected: ->
+    return false if @threads.length == 0
+
+    selected = true
+    for thread in @threads
+      selected = false if !thread.selected
+
+    selected
+
+  refresh: ->
+    reqwest
+      url: "/api/threads/index.json?ts=#{Date.now()}"
+      type: 'json'
+      success: (threads)=>
+        @threads = threads
+        @paging =
+          from: 1
+          to: threads.length
+          count: threads.length
+
+        @trigger 'change'
 
   toggleSelected: (id)->
     thread = _.find @threads, (thread)-> thread.id == id
@@ -47,32 +77,14 @@
 
     @trigger 'change'
 
-  someSelected: ->
-    selected = false
-    for thread in @threads
-      selected = true if thread.selected
-
-    selected
-
-  noneSelected: ->
-    !@someSelected()
-
-  allSelected: ->
-    return false if @threads.length == 0
-
-    selected = true
-    for thread in @threads
-      selected = false if !thread.selected
-
-    selected
-
 MicroEvent.mixin(ThreadStore)
 ThreadStore.refresh()
 
-Dispatcher.registerAll
+Dispatcher.register
   'toggle-selected': (id)-> ThreadStore.toggleSelected(id)
   'bulk-toggle-selected': -> ThreadStore.bulkToggleSelected()
   'select-all': -> ThreadStore.selectAll()
   'select-none': -> ThreadStore.selectNone()
   'select-unread': -> ThreadStore.selectUnread()
   'select-read': -> ThreadStore.selectRead()
+  'refresh': -> ThreadStore.refresh()
