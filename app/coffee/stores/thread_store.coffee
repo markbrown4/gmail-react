@@ -29,17 +29,14 @@
     selected
 
   refresh: ->
-    reqwest
-      url: "/api/threads/index.json?ts=#{Date.now()}"
-      type: 'json'
-      success: (threads)=>
-        @threads = threads
-        @paging =
-          from: 1
-          to: threads.length
-          count: threads.length
+    reqwest "/api/threads/index.json", (threads)=>
+      @threads = threads
+      @paging =
+        from: 1
+        to: threads.length
+        count: threads.length
 
-        @trigger 'change'
+      @trigger 'change'
 
   toggleSelected: (id)->
     thread = _.find @threads, (thread)-> thread.id == id

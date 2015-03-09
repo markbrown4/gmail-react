@@ -12,7 +12,11 @@ Pagination = React.createClass
       <span> of </span>
       <strong>{@props.count}</strong>
       <div className="split-btn">
-        <a className="btn btn-mini" title="Previous" onClick={@previousPage}><img src="images/icons/prev.png" /></a>
-        <a className="btn btn-mini" title="Next" onClick={@nextPage}><img src="images/icons/next.png" /></a>
+        <a className="btn btn-mini" title="Previous" onClick={@previousPage}>
+          <Icon name='prev' />
+        </a>
+        <a className="btn btn-mini" title="Next" onClick={@nextPage}>
+          <Icon name='next' />
+        </a>
       </div>
     </div>

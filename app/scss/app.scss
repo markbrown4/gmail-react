@@ -1,5 +1,6 @@
 @import "common";
 @import "forms";
+@import "icons";
 
 $red: #D14836;
 
@@ -92,6 +93,7 @@ li {
     height: 16px;
     margin-top: -3px;
     background: url('../images/icons/search.png') 50% 50% no-repeat;
+    background-size: auto 15px;
   }
 }
 #sub-header {
@@ -114,7 +116,7 @@ li {
   position: relative;
   padding: 6px 20px;
   margin-right: 10px;
-  img {
+  .icon {
     vertical-align: middle;
     opacity: .5;
   }
@@ -128,7 +130,7 @@ li {
 .btn:hover {
   background: linear-gradient(#F8F8F8, #F5F5F5);
   border: 1px solid rgba(#000, .2);
-  img {
+  .icon {
     opacity: 1;
   }
 }
@@ -208,9 +210,6 @@ li {
 .drop-down {
   position: relative;
   cursor: pointer;
-  img {
-    vertical-align: middle;
-  }
   ul {
     position: absolute;
     z-index: 2;
@@ -249,16 +248,16 @@ li {
     line-height: 1.2;
   }
   .btn {
-    img { opacity: .5 }
-    &:hover {
-      img { opacity: .9 }
+    .icon { opacity: .5 }
+    &:hover .icon {
+      opacity: .9;
     }
   }
   .inactive {
     cursor: default;
-    img { opacity: .3 }
-    &:hover {
-      img { opacity: .3 }
+    .icon { opacity: .3 }
+    &:hover .icon {
+      opacity: .3;
     }
   }
 }
@@ -272,6 +271,7 @@ li {
 }
 #logo img {
   display: block;
+  width: 90px;
 }
 #nav {
   margin: 10px 20px 15px 30px;

@@ -107,10 +107,8 @@ ThreadList = React.createClass
     threads: []
 
   componentDidMount: ->
-    reqwest
-      url: '/api/threads/index.json'
-      success: (threads)=>
-        @setState threads: threads
+    reqwest '/api/threads/index.json', (threads)=>
+      @setState threads: threads
 
   render: ->
     <ul id="threads">
@@ -258,7 +256,7 @@ InboxActions =
 Stores are our Models/Collections, they listen for dispatched events, update themselves and emit that they have changed
 
 ```coffee
-# thread_store.coffee
+# stores/thread_store.coffee
 ThreadStore =
   threads: []
 
@@ -297,10 +295,10 @@ Inbox = React.createClass
   render: ->
     <div id="wrapper">
       <Header />
-      <SubHeader {...@state} />
+      <SubHeader threads={@state.threads} />
       <Nav />
       <div id="content">
-        <ThreadList {...@state} />
+        <ThreadList threads={@state.threads} />
       </div>
     </div>
 ```

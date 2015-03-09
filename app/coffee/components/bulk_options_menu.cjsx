@@ -32,7 +32,7 @@ BulkOptionsMenu = React.createClass
 
     <div className={"drop-down btn " + menuClasses} onClick={@toggleMenu}>
       <a className={"check " + checkBoxClasses} onClick={@bulkToggleSelected}></a>
-      <img src="images/icons/down.png" />
+      <Icon name='down' />
       <ul>
         <li><a onClick={@selectAll}>All</a></li>
         <li><a onClick={@selectNone}>None</a></li>
