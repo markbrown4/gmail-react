@@ -1,22 +1,24 @@
 
+dispatch = Dispatcher.dispatch
+
 @InboxActions =
   toggleSelected: (id)->
-    Dispatcher.dispatch 'toggle-selected', id
+    dispatch 'toggle-selected', id
 
-  # selectAll: ->
-  #   ''
+  bulkToggleSelected: ->
+    dispatch 'bulk-toggle-selected'
 
-  # selectNone: ->
-  #   ''
+  selectAll: ->
+    dispatch 'select-all'
 
-  # selectUnread: ->
-  #   ''
+  selectNone: ->
+    dispatch 'select-none'
 
-  # selectRead: ->
-  #   ''
+  selectUnread: ->
+    dispatch 'select-unread'
 
-  # selectToggle: ->
-  #   ''
+  selectRead: ->
+    dispatch 'select-read'
 
-  # composeMessage: ->
-  #   ''
+  composeMessage: ->
+    dispatch 'compose-message'

@@ -1,5 +1,10 @@
 
 SubHeader = React.createClass
+  bulkToggleSelected: (event)->
+    event.preventDefault()
+
+    InboxActions.bulkToggleSelected()
+
   render: ->
     <div id="sub-header">
       <h1 className="app-name"><span>n</span>Gmail</h1>
@@ -12,8 +17,9 @@ SubHeader = React.createClass
           <a className="btn btn-mini" title="Next"><img src="images/icons/next.png" /></a>
         </div>
       </div>
-      <a className="btn" title="Back to Inbox"><img src="images/icons/back.png" /></a>
-      <div className="drop-down btn">
+
+      <a className="btn" title="Back to Inbox" style={display:'none'}><img src="images/icons/back.png" /></a>
+      <div className="drop-down btn" onClick={@bulkToggleSelected}>
         <a className="check"></a>
         <img src="images/icons/down.png" />
         <ul>

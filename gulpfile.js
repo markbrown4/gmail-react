@@ -14,12 +14,16 @@ var paths = {
     src:  'app/scss/**/*.scss',
     dest: 'app/css'
   },
-  cjsx: {
+  components: {
     src:  'app/coffee/components/*.cjsx',
     dest: 'app/js'
   },
+  stores: {
+    src:  'app/coffee/stores/*.coffee',
+    dest: 'app/js'
+  },
   coffee: {
-    src:  'app/coffee/**/*.coffee',
+    src:  'app/coffee/*.coffee',
     dest: 'app/js'
   }
 };
@@ -31,11 +35,18 @@ gulp.task('styles', function() {
     .pipe(gulp.dest(paths.styles.dest));
 });
 
-gulp.task('cjsx', function() {
-  return gulp.src(paths.cjsx.src)
+gulp.task('components', function() {
+  return gulp.src(paths.components.src)
     .pipe(cjsx({bare: true}).on('error', gutil.log))
     .pipe(concat('components.js'))
-    .pipe(gulp.dest(paths.cjsx.dest));
+    .pipe(gulp.dest(paths.components.dest));
+});
+
+gulp.task('stores', function() {
+  return gulp.src(paths.stores.src)
+    .pipe(coffee().on('error', gutil.log))
+    .pipe(concat('stores.js'))
+    .pipe(gulp.dest(paths.stores.dest));
 });
 
 gulp.task('coffee', function() {
@@ -45,11 +56,12 @@ gulp.task('coffee', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.cjsx.src, ['cjsx']);
+  gulp.watch(paths.components.src, ['components']);
+  gulp.watch(paths.stores.src, ['stores']);
   gulp.watch(paths.coffee.src, ['coffee']);
   gulp.watch(paths.styles.src, ['styles']);
 });
 
-gulp.task('scripts', ['cjsx', 'coffee']);
+gulp.task('scripts', ['components', 'stores', 'coffee']);
 gulp.task('default', ['styles', 'scripts', 'watch']);
 
