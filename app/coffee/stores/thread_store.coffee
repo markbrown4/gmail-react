@@ -23,23 +23,29 @@
     else
       @selectAll()
 
-    @trigger 'change'
-
   selectAll: ->
     for thread in @threads
       thread.selected = true
+
+    @trigger 'change'
 
   selectNone: ->
     for thread in @threads
       thread.selected = false
 
+    @trigger 'change'
+
   selectRead: ->
     for thread in @threads
       thread.selected = !thread.unread
 
+    @trigger 'change'
+
   selectUnread: ->
     for thread in @threads
       thread.selected = thread.unread
+
+    @trigger 'change'
 
   someSelected: ->
     selected = false

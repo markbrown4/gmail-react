@@ -1,11 +1,36 @@
 
 SubHeader = React.createClass
+  getInitialState: ->
+    bulkOptionsOpen: false
+
   bulkToggleSelected: (event)->
-    event.preventDefault()
+    event.stopPropagation()
 
     InboxActions.bulkToggleSelected()
 
+  toggleBulkOptions: (event)->
+    @setState bulkOptionsOpen: !@state.bulkOptionsOpen
+
+  selectAll: (event)->
+    InboxActions.selectAll()
+
+  selectNone: (event)->
+    InboxActions.selectNone()
+
+  selectRead: (event)->
+    InboxActions.selectRead()
+
+  selectUnread: (event)->
+    InboxActions.selectUnread()
+
   render: ->
+    bulkSelectClasses = React.addons.classSet
+      'all-selected': ThreadStore.allSelected()
+      'some-selected': ThreadStore.someSelected()
+
+    bulkDropDownClasses = React.addons.classSet
+      'active': @state.bulkOptionsOpen
+
     <div id="sub-header">
       <h1 className="app-name"><span>n</span>Gmail</h1>
       <div className="paging">
@@ -17,16 +42,15 @@ SubHeader = React.createClass
           <a className="btn btn-mini" title="Next"><img src="images/icons/next.png" /></a>
         </div>
       </div>
-
       <a className="btn" title="Back to Inbox" style={display:'none'}><img src="images/icons/back.png" /></a>
-      <div className="drop-down btn" onClick={@bulkToggleSelected}>
-        <a className="check"></a>
+      <div className={"drop-down btn " + bulkDropDownClasses} onClick={@toggleBulkOptions}>
+        <a className={"check " + bulkSelectClasses} onClick={@bulkToggleSelected}></a>
         <img src="images/icons/down.png" />
         <ul>
-          <li><a>All</a></li>
-          <li><a>None</a></li>
-          <li><a>Read</a></li>
-          <li><a>Unread</a></li>
+          <li><a onClick={@selectAll}>All</a></li>
+          <li><a onClick={@selectNone}>None</a></li>
+          <li><a onClick={@selectRead}>Read</a></li>
+          <li><a onClick={@selectUnread}>Unread</a></li>
         </ul>
       </div>
       <div className="split-btn">
