@@ -27,7 +27,7 @@ Hit http://localhost:8000/ in your favourite browser and you should see a bunch 
 Let's remove the entire `<ul id="threads">` element from *index.html* and make a React component to build it dynamically.
 
 ```coffee
-# thread_list.cjsx
+# components/thread_list.cjsx
 ThreadList = React.createClass
   render: ->
     <ul id="threads">
@@ -69,6 +69,7 @@ Notice we're using **className** in the place of class, that's because React use
 Components can render other components.
 
 ```coffee
+# components/thread_list.cjsx
 ThreadList = React.createClass
   render: ->
     <ul id="threads">
@@ -100,6 +101,7 @@ Data is stored in a components *props* and *state* objects, when either of these
 > State should contain data that a component's event handlers may change to trigger a UI update.
 
 ```coffee
+# components/thread_list.cjsx
 ThreadList = React.createClass
   getInitialState: ->
     threads: []
@@ -148,7 +150,9 @@ Let's wire up our checkboxes to toggle a *selected* state on our threads.
 React supports all of the usual events, we can listen for them in our components, toggle state and re-render.  http://facebook.github.io/react/docs/events.html
 
 ```coffee
-ThreadListItem = React.createClass
+# components/thread_list.cjsx
+...
+ThreadItem = React.createClass
   getInitialState: ->
     selected: false
 
@@ -158,20 +162,33 @@ ThreadListItem = React.createClass
     @setState selected: !@state.selected
 
   render: ->
-    ...
+    thread = @props.thread
+    lastMessage = thread.last_message
+
     threadClasses = React.addons.classSet
       unread: thread.unread
       selected: @state.selected
 
     <li className={ threadClasses }>
-      ...
-      <span className="check" onClick={@select}></span>
-      ...
+      <a>
+        <time>{ lastMessage.created_at }</time>
+        <span className="check" onClick={@select}></span>
+        <span className="people">
+          { for person in thread.participants
+            <span className="name unread">
+              { person.first_name } { person.last_name }
+            </span>
+          }
+        </span>
+        <span className="subject">{ lastMessage.subject }</span>
+        <span className="body">- { lastMessage.snippet }</span>
+      </a>
+    </li>
 ```
 
-**React.addons.classSet** is a handy utility method for adding conditional classes.
+*React.addons.classSet* is a handy utility method for adding conditional classes.
 
-## The magic
+## The Magic
 
 If you use your browsers web inspector and watch what happens when you click the checkbox you'll notice that the only thing that changes in the DOM is a single className on the `<li>` nodes.  This is interesting because the render method has been triggered causing the entire component to be re-rendered yet the document remains unchanged except for the specific parts that require updates.
 
@@ -184,7 +201,7 @@ A components render method should not have any side effects, it should take stat
 Let's move our attention to the `<div id="sub-header">` element next, when selecting threads we want our SubHeader to show us tools we can use on that selection.  We also want checking the box in the sub-header to change state on our threads.
 This tells us we need a component above our ThreadList and SubHeader to maintain this shared state and that we should pull it out of ThreadItem's state and instead pass it from Inbox all the way down to Thread through props.
 
-React encourages us to break down our interface into a hierarchy of small components that take data and state and render. We'll make an Inbox component that holds the state for selected threads and will pass it down to the SubHeader and ThreadList components through props.
+React encourages us to break down our interface into a hierarchy of small components that given specific props and state render consistently.  We'll make an Inbox component that holds the state for selected threads and can pass it down to the SubHeader and ThreadList components through props.
 
 ```
 <Inbox>
@@ -204,12 +221,12 @@ This is where things get more tricky, Flux is a pattern of single directional da
 
 **Action > Dispatcher > Store > View**
 
-A View initiates an Action
-Actions dispatch an event with a name and payload
-Stores are our Models/Collections, they listen for dispatched events, update themselves and emit that they have changed
-Controller-Views are components that listen for changes on the store, fetch any data they need and pass it down to child components
+- A View initiates an Action
+- Actions dispatch an event with a name and payload
+- Stores are our Models/Collections, they listen for dispatched events, update themselves and emit that they have changed
+- Controller-Views are components that listen for changes on the store, fetch any data they need and pass it down to child components
 
-Our **Inbox** component is an example of a Controller-View, it's a regular component that has the special job of fetching data from our Store wanting to know when it's data changes so it can re-render and flow it's data down through to clild components.
+Our **Inbox** component is an example of a Controller-View, it's a regular component that has the special job of fetching data from our Store and wanting to know when it's data changes so it can re-render and flow it's data down through to clild components.
 
 #### A basic Flux implementation
 
@@ -230,7 +247,7 @@ ThreadListItem = React.createClass
 ```
 
 Actions dispatch an event with a name and payload
-```
+```coffee
 # actions.coffee
 @InboxActions =
   toggleSelected: (id)->
@@ -239,7 +256,8 @@ Actions dispatch an event with a name and payload
 ```
 
 Stores are our Models/Collections, they listen for dispatched events, update themselves and emit that they have changed
-```
+
+```coffee
 # thread_store.coffee
 @ThreadStore =
   threads: []
@@ -261,7 +279,7 @@ Dispatcher.register
 
 Controller-Views are components that listen for changes on the store, fetch any data they need and pass it down to child components
 
-```
+```coffee
 # components/inbox.cjsx
 Inbox = React.createClass
   getInitialState: ->
@@ -298,4 +316,4 @@ The Dispatcher we'll be using is just an event registry, Stores *register* event
 MicroEvent.mixin(Dispatcher)
 ```
 
-* The [Facebook Dispatcher](http://facebook.github.io/flux/docs/actions-and-the-dispatcher.html#content) uses Promises, runs callbacks in order and supports control flow with *waitFor* e.g. Store A can wait Store B's callbacks to run before it's own.
+> The [Facebook Dispatcher](http://facebook.github.io/flux/docs/actions-and-the-dispatcher.html#content) uses Promises, runs callbacks in order and supports control flow with *waitFor* e.g. Store A can wait Store B's callbacks to run before it's own.
