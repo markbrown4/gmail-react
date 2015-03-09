@@ -203,7 +203,7 @@ This tells us we need a component above our ThreadList and SubHeader to maintain
 
 React encourages us to break down our interface into a hierarchy of small components that given specific props and state render consistently.  We'll make an Inbox component that holds the state for selected threads and can pass it down to the SubHeader and ThreadList components through props.
 
-```
+```xml
 <Inbox>
   <SubHeader />
   <Nav />
@@ -249,7 +249,7 @@ ThreadListItem = React.createClass
 Actions dispatch an event with a name and payload
 ```coffee
 # actions.coffee
-@InboxActions =
+InboxActions =
   toggleSelected: (id)->
    Dispatcher.trigger 'toggle-selected', id
 
@@ -259,7 +259,7 @@ Stores are our Models/Collections, they listen for dispatched events, update the
 
 ```coffee
 # thread_store.coffee
-@ThreadStore =
+ThreadStore =
   threads: []
 
   getState: ->
@@ -308,7 +308,7 @@ Inbox = React.createClass
 The Dispatcher we'll be using is just an event registry, Stores *register* events they want to know about, Actions *trigger* those events.
 ```coffee
 # dispatcher.coffee
-@Dispatcher =
+Dispatcher =
   register: (events)->
     for eventName, callback of events
       @bind eventName, callback
