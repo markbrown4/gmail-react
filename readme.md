@@ -213,7 +213,7 @@ React encourages us to break down our interface into a hierarchy of small compon
 > For communication between two components that don't have a parent-child relationship, you can set up your own global event system. Subscribe to events in componentDidMount(), unsubscribe in componentWillUnmount(), and call setState() when you receive an event.
 > http://facebook.github.io/react/tips/communicate-between-components.html
 
-### Flux
+## Flux
 
 This is where things get more tricky, Flux is a pattern of single directional data flow.
 
@@ -226,7 +226,7 @@ This is where things get more tricky, Flux is a pattern of single directional da
 
 Our **Inbox** component is an example of a Controller-View, it's a regular component that has the special job of fetching data from our Store and wanting to know when it's data changes so it can re-render and flow it's data down through to clild components.
 
-#### A basic Flux implementation
+### A basic Flux implementation
 
 *Perhaps Daniel15 can tell us if we're doing anything that isn't The Flux Way™ and we can adapt it.*
 
@@ -314,4 +314,9 @@ Dispatcher =
 MicroEvent.mixin(Dispatcher)
 ```
 
-> The [Facebook Dispatcher](http://facebook.github.io/flux/docs/actions-and-the-dispatcher.html#content) uses Promises, runs callbacks in order and supports control flow with *waitFor* e.g. Store A can wait Store B's callbacks to run before it's own.
+> The [Facebook Dispatcher](http://facebook.github.io/flux/docs/actions-and-the-dispatcher.html#content) is quite a different implementation than this, it uses Promises, runs callbacks in order and supports control flow with *waitFor* e.g. Store A can wait Store B's callbacks to run before it's own.
+
+## Routing
+
+[react-router]() seems to be the most popular solution for routing in React apps so we'll focus on that.
+

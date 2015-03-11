@@ -1,5 +1,5 @@
 
-Pagination = React.createClass
+@Pagination = React.createClass
   nextPage: (event)->
     InboxActions.nextPage()
 

@@ -1,5 +1,5 @@
 
-ThreadTools = React.createClass
+@ThreadTools = React.createClass
   archive: (event)->
     InboxActions.archiveSelected()
 

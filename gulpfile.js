@@ -37,7 +37,7 @@ gulp.task('styles', function() {
 
 gulp.task('components', function() {
   return gulp.src(paths.components.src)
-    .pipe(cjsx({bare: true}).on('error', gutil.log))
+    .pipe(cjsx().on('error', gutil.log))
     .pipe(concat('components.js'))
     .pipe(gulp.dest(paths.components.dest));
 });

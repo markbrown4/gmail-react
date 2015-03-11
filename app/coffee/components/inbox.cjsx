@@ -1,5 +1,5 @@
 
-Inbox = React.createClass
+@Inbox = React.createClass
   getInitialState: ->
     ThreadStore.getState()
 

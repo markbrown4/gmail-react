@@ -1,5 +1,5 @@
 
-ThreadList = React.createClass
+@ThreadList = React.createClass
   render: ->
     <ul id="threads">
       { for thread in @props.threads

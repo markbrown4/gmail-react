@@ -1,5 +1,5 @@
 
-Nav = React.createClass
+@Nav = React.createClass
   render: ->
     <div id="nav">
       <a className="compose">COMPOSE</a>

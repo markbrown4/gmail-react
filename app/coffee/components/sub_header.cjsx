@@ -1,5 +1,5 @@
 
-SubHeader = React.createClass
+@SubHeader = React.createClass
   refresh: ->
     InboxActions.refresh()
 

@@ -1,5 +1,5 @@
 
-Header = React.createClass
+@Header = React.createClass
   render: ->
     <div id="header">
       <span id="logo"><img src="images/logo.png" /></span>

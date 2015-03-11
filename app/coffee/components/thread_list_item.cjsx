@@ -1,5 +1,5 @@
 
-ThreadListItem = React.createClass
+@ThreadListItem = React.createClass
   toggleSelected: (event)->
     event.preventDefault()
 

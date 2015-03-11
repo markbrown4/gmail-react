@@ -1,4 +1,5 @@
-BulkOptionsMenu = React.createClass
+
+@BulkOptionsMenu = React.createClass
   getInitialState: ->
     open: false
 
