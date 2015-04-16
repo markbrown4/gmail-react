@@ -22,6 +22,10 @@ var paths = {
     src:  'app/coffee/stores/*.coffee',
     dest: 'app/js'
   },
+  cjsx: {
+    src:  'app/coffee/*.cjsx',
+    dest: 'app/js'
+  },
   coffee: {
     src:  'app/coffee/*.coffee',
     dest: 'app/js'
@@ -55,13 +59,20 @@ gulp.task('coffee', function() {
     .pipe(gulp.dest(paths.coffee.dest));
 });
 
+gulp.task('cjsx', function() {
+  return gulp.src(paths.cjsx.src)
+    .pipe(cjsx().on('error', gutil.log))
+    .pipe(gulp.dest(paths.cjsx.dest));
+});
+
 gulp.task('watch', function() {
   gulp.watch(paths.components.src, ['components']);
   gulp.watch(paths.stores.src, ['stores']);
+  gulp.watch(paths.cjsx.src,   ['cjsx']);
   gulp.watch(paths.coffee.src, ['coffee']);
   gulp.watch(paths.styles.src, ['styles']);
 });
 
-gulp.task('scripts', ['components', 'stores', 'coffee']);
+gulp.task('scripts', ['components', 'stores', 'coffee', 'cjsx']);
 gulp.task('default', ['styles', 'scripts', 'watch']);
 

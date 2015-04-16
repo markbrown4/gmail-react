@@ -1,8 +1,10 @@
-@Inbox = React.createClass
+@ThreadDetail = React.createClass
+  mixins: [ReactRouter.State]
   getInitialState: ->
     ThreadStore.getState()
 
   componentDidMount: ->
+    id = @getParams().id
     ThreadStore.bind 'change', @onChange
 
   componentWillUnmount: ->
@@ -17,6 +19,6 @@
       <SubHeader {...@state} />
       <Nav />
       <div id="content">
-        <ThreadList {...@state} />
+        <Thread {...@state} />
       </div>
     </div>

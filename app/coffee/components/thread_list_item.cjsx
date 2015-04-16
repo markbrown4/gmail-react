@@ -1,3 +1,4 @@
+Link = ReactRouter.Link
 
 @ThreadListItem = React.createClass
   toggleSelected: (event)->
@@ -13,7 +14,7 @@
       selected: @props.selected
 
     <li className={ threadClasses }>
-      <a>
+      <Link to="thread" params={id: @props.id}>
         <time>{ lastMessage.created_at }</time>
         <span className="check" onClick={@toggleSelected}></span>
         <span className="people">
@@ -23,5 +24,5 @@
         </span>
         <span className="subject">{ lastMessage.subject }</span>
         <span className="body">- { lastMessage.snippet }</span>
-      </a>
+      </Link>
     </li>
