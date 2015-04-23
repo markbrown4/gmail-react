@@ -120,16 +120,16 @@ ThreadList = React.createClass
 ThreadItem = React.createClass
   render: ->
     thread = @props.thread
-    lastMessage = thread.last_message
+    lastMessage = thread.lastMessage
 
     <li className="unread">
       <a>
-        <time>{ lastMessage.created_at }</time>
+        <time>{ lastMessage.createdAt }</time>
         <span className="check"></span>
         <span className="people">
           { for person in thread.participants
             <span className="name unread">
-              { person.first_name } { person.last_name }
+              { person.firstName } { person.lastName }
             </span>
           }
         </span>
@@ -161,7 +161,7 @@ ThreadItem = React.createClass
 
   render: ->
     thread = @props.thread
-    lastMessage = thread.last_message
+    lastMessage = thread.lastMessage
 
     threadClasses = React.addons.classSet
       unread: thread.unread
@@ -169,12 +169,12 @@ ThreadItem = React.createClass
 
     <li className={ threadClasses }>
       <a>
-        <time>{ lastMessage.created_at }</time>
+        <time>{ lastMessage.createdAt }</time>
         <span className="check" onClick={@select}></span>
         <span className="people">
           { for person in thread.participants
             <span className="name unread">
-              { person.first_name } { person.last_name }
+              { person.firstName } { person.lastName }
             </span>
           }
         </span>

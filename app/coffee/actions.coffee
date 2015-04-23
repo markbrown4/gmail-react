@@ -3,6 +3,12 @@
   dispatch: (eventName, obj)->
     Dispatcher.trigger eventName, obj
 
+  loadThreads: ->
+    @dispatch 'load-threads'
+
+  loadThread: (id)->
+    @dispatch 'load-thread', id
+
   toggleSelected: (id)->
     @dispatch 'toggle-selected', id
 
@@ -24,5 +30,3 @@
   composeMessage: ->
     @dispatch 'compose-message'
 
-  refresh: ->
-    @dispatch 'refresh'

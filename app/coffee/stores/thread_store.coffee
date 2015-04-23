@@ -1,13 +1,31 @@
 
 @ThreadStore =
   threads: []
+  thread: { messages: [] }
   paging: {}
 
   getState: ->
     threads: @threads
+    thread: @thread
     paging: @paging
     allSelected: @allSelected()
     someSelected: @someSelected()
+
+  loadThreads: ->
+    reqwest "/api/threads/index.json", (threads)=>
+      @threads = threads
+      @paging =
+        from: 1
+        to: threads.length
+        count: threads.length
+
+      @trigger 'change'
+
+  loadThread: (id)->
+    reqwest "/api/threads/#{id}.json", (thread)=>
+      @thread = thread
+
+      @trigger 'change'
 
   someSelected: ->
     selected = false
@@ -27,16 +45,6 @@
       selected = false if !thread.selected
 
     selected
-
-  refresh: ->
-    reqwest "/api/threads/index.json", (threads)=>
-      @threads = threads
-      @paging =
-        from: 1
-        to: threads.length
-        count: threads.length
-
-      @trigger 'change'
 
   toggleSelected: (id)->
     thread = _.find @threads, (thread)-> thread.id == id
@@ -75,13 +83,14 @@
     @trigger 'change'
 
 MicroEvent.mixin(ThreadStore)
-ThreadStore.refresh()
+ThreadStore.loadThreads()
 
 Dispatcher.register
+  'load-threads': -> ThreadStore.loadThreads()
+  'load-thread': (id)-> ThreadStore.loadThread(id)
   'toggle-selected': (id)-> ThreadStore.toggleSelected(id)
   'bulk-toggle-selected': -> ThreadStore.bulkToggleSelected()
   'select-all': -> ThreadStore.selectAll()
   'select-none': -> ThreadStore.selectNone()
   'select-unread': -> ThreadStore.selectUnread()
   'select-read': -> ThreadStore.selectRead()
-  'refresh': -> ThreadStore.refresh()

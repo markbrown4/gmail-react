@@ -14,5 +14,6 @@ routes = (
   </Route>
 )
 
-ReactRouter.run routes, (Handler)->
-  React.render(<Handler/>, document.body)
+document.addEventListener "DOMContentLoaded", ->
+  ReactRouter.run routes, (Handler)->
+    React.render(<Handler/>, document.body)

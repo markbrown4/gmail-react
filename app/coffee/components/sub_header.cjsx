@@ -1,7 +1,7 @@
 
 @SubHeader = React.createClass
   refresh: ->
-    InboxActions.refresh()
+    InboxActions.loadThreads()
 
   render: ->
     <div id="sub-header">

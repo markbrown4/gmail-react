@@ -5,6 +5,7 @@
 
   componentDidMount: ->
     id = @getParams().id
+    InboxActions.loadThread(id)
     ThreadStore.bind 'change', @onChange
 
   componentWillUnmount: ->
@@ -19,6 +20,6 @@
       <SubHeader {...@state} />
       <Nav />
       <div id="content">
-        <Thread {...@state} />
+        <Thread {...@state.thread} />
       </div>
     </div>

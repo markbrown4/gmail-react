@@ -3,20 +3,20 @@
   "messages": [{
     "id": 6,
     "from": {
-      "first_name": "Beatrix",
-      "last_name": "Kiddo",
+      "firstName": "Beatrix",
+      "lastName": "Kiddo",
       "email": "blackmamba@gmail.com",
-      "avatar": "uma.jpg"
+      "avatarUrl": "/images/avatars/uma.jpg"
     },
     "to": [{
-      "first_name": "Mark",
-      "last_Name": "Brown",
+      "firstName": "Mark",
+      "lastName": "Brown",
       "email": "markbrown4@gmail.com"
     }],
     "unread": true,
     "subject": "My fox force five joke",
     "snippet": "Vincent, You still wanna hear it?",
     "body": "<p>Vincent,<br><br>You still wanna hear it?</p>",
-    "created_at": 1409366556530
+    "createdAt": 1409366556530
   }]
 }

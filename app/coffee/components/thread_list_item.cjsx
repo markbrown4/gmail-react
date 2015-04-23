@@ -7,7 +7,7 @@ Link = ReactRouter.Link
     InboxActions.toggleSelected @props.id
 
   render: ->
-    lastMessage = @props.last_message
+    lastMessage = @props.lastMessage
 
     threadClasses = React.addons.classSet
       unread: @props.unread
@@ -15,11 +15,13 @@ Link = ReactRouter.Link
 
     <li className={ threadClasses }>
       <Link to="thread" params={id: @props.id}>
-        <time>{ lastMessage.created_at }</time>
+        <time>{ lastMessage.createdAt }</time>
         <span className="check" onClick={@toggleSelected}></span>
         <span className="people">
           { for person, i in @props.participants
-            <span key={"thread-#{@props.id}-#{i}"} className="name unread">{ person.first_name } { person.last_name }</span>
+            <span key={"thread-#{@props.id}-#{i}"} className="name unread">
+              { person.firstName } { person.lastName }
+            </span>
           }
         </span>
         <span className="subject">{ lastMessage.subject }</span>
