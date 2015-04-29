@@ -196,10 +196,12 @@ A components render method should not have any side effects, it should take stat
 
 ## Communication between components
 
-Let's move our attention to the `<div id="sub-header">` element next, when selecting threads we want our SubHeader to show us tools we can use on that selection.  We also want checking the box in the sub-header to change state on our threads.
-This tells us we need a component above our ThreadList and SubHeader to maintain this shared state and that we should pull it out of ThreadItem's state and instead pass it from Inbox all the way down to Thread through props.
+Let's move our attention to the `<div id="sub-header">` element next, it's state needs to be kept in sync with the main content area - when selecting threads we want our SubHeader to show us tools we can use on that selection.  We also want checking the box in the sub-header to change state on our threads.  The ThreadList and ThreadDetail views also display different content in the SubHeader, there's a few options:
 
-React encourages us to break down our interface into a hierarchy of small components that given specific props and state render consistently.  We'll make an Inbox component that holds the state for selected threads and can pass it down to the SubHeader and ThreadList components through props.
+1. We could add a parent component Inbox above our ThreadList and SubHeader to maintain this shared state that can pass data all the way down to SubHeader and Thread through props.
+2. SubHeader and ThreadList both have a responsibility to fetch data upon changes and re-render
+
+React encourages us to break down our interface into a hierarchy of small components that given specific props and state render consistently.  Option 1 looks something like this:
 
 ```xml
 <Inbox>
@@ -209,28 +211,39 @@ React encourages us to break down our interface into a hierarchy of small compon
     <Thread />
   </ThreadList>
 </Inbox>
+
+<ThreadDetail>
+  <SubHeader />
+  <Nav />
+  <ThreadList>
+    <Thread />
+  </ThreadList>
+</ThreadDetail>
 ```
+
 > For communication between two components that don't have a parent-child relationship, you can set up your own global event system. Subscribe to events in componentDidMount(), unsubscribe in componentWillUnmount(), and call setState() when you receive an event.
 > http://facebook.github.io/react/tips/communicate-between-components.html
 
+This(Option 2) seems like a better fit for our SubHeader component, it doesn't tie our data flow to the structure of our HTML(parent > child components) and makes routing simpler - The SubHeader can stay put in a main layout and listen for data changes.
+
 ## Flux
 
-This is where things get more tricky, Flux is a pattern of single directional data flow.
+This is where things get a little more tricky, Flux is a pattern of single directional data flow.
 
-**Action > Dispatcher > Store > View**
+**Action > Dispatcher > Store > Component**
 
-- A View initiates an Action
-- Actions dispatch an event with a name and payload
-- Stores are our Models/Collections, they listen for dispatched events, update themselves and emit that they have changed
+- Components initiate Actions
+- Actions dispatch an event with a unique name and payload
+- Stores are our Models/Collections, they listen for dispatched events, update themselves and tell the world that they have changed
 - Controller-Views are components that listen for changes on the store, fetch any data they need and pass it down to child components
 
-Our **Inbox** component is an example of a Controller-View, it's a regular component that has the special job of fetching data from our Store and wanting to know when it's data changes so it can re-render and flow it's data down through to clild components.
+Our **SubHeader** and **ThreadList** components are example of Controller-Views, it's a regular component that has the special job of fetching data from our Store and wanting to know when it's data changes so it can re-render and flow it's data down through to clild components.
 
 ### A basic Flux implementation
 
 *Perhaps Daniel15 can tell us if we're doing anything that isn't The Flux Way™ and we can adapt it.*
 
-A View initiates an Action
+A Component initiates an Action
 ```coffee
 # components/thread_list_item.cjsx
 ThreadListItem = React.createClass
@@ -253,33 +266,33 @@ InboxActions =
 
 ```
 
-Stores are our Models/Collections, they listen for dispatched events, update themselves and emit that they have changed
+Stores are our Models/Collections, they listen for dispatched events, update themselves and emit that they have changed. Some care is taken to only expose public getters to enforce that all changes happen through dispatched events.
 
 ```coffee
 # stores/thread_store.coffee
-ThreadStore =
-  threads: []
+threads = []
 
+@ThreadStore =
   getState: ->
-    threads: @threads
-
-  toggleSelected: (id)->
-    thread = _.find @threads, (thread)-> thread.id == id
-    thread.selected = !thread.selected
-
-    @trigger 'change'
+    threads: threads
 
 MicroEvent.mixin(ThreadStore)
 
+toggleSelected = (id)->
+  thread = _.find @threads, (thread)-> thread.id == id
+  thread.selected = !thread.selected
+
+  @trigger 'change'
+
 Dispatcher.register
-  'toggle-selected': (id)-> ThreadStore.toggleSelected(id)
+  'toggle-selected': (id)-> toggleSelected(id)
 ```
 
 Controller-Views are components that listen for changes on the store, fetch any data they need and pass it down to child components
 
 ```coffee
-# components/inbox.cjsx
-Inbox = React.createClass
+# components/thread_list.cjsx
+ThreadList = React.createClass
   getInitialState: ->
     ThreadStore.getState()
 
@@ -293,14 +306,11 @@ Inbox = React.createClass
     @setState ThreadStore.getState()
 
   render: ->
-    <div id="wrapper">
-      <Header />
-      <SubHeader threads={@state.threads} />
-      <Nav />
-      <div id="content">
-        <ThreadList threads={@state.threads} />
-      </div>
-    </div>
+    <ul id="threads">
+      { for thread in @state.threads
+        <ThreadListItem {...thread} />
+      }
+    </ul>
 ```
 
 The Dispatcher we'll be using is just an event registry, Stores *register* events they want to know about, Actions *trigger* those events.
@@ -315,6 +325,8 @@ MicroEvent.mixin(Dispatcher)
 ```
 
 > The [Facebook Dispatcher](http://facebook.github.io/flux/docs/actions-and-the-dispatcher.html#content) is quite a different implementation than this, it uses Promises, runs callbacks in order and supports control flow with *waitFor* e.g. Store A can wait Store B's callbacks to run before it's own.
+
+And that's it, a wonderfully naive implementation of Flux.
 
 ## Routing
 

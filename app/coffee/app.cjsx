@@ -4,13 +4,20 @@ Redirect = ReactRouter.Redirect
 
 App = React.createClass
   render: ->
-    <RouteHandler/>
+    <div id="wrapper">
+      <Header />
+      <SubHeader />
+      <Nav />
+      <div id="content">
+        <RouteHandler />
+      </div>
+    </div>
 
 routes = (
   <Route handler={App}>
-    <Route name="inbox" path="inbox" handler={Inbox} />
+    <Route name="threads" path="threads" handler={ThreadList} />
     <Route name="thread" path="threads/:id" handler={ThreadDetail} />
-    <Redirect from="" to="inbox" />
+    <Redirect from="" to="threads" />
   </Route>
 )
 

@@ -10,23 +10,22 @@
     @dispatch 'load-thread', id
 
   toggleSelected: (id)->
-    @dispatch 'toggle-selected', id
+    @dispatch 'toggle-selected-threads', id
 
   bulkToggleSelected: ->
-    @dispatch 'bulk-toggle-selected'
+    @dispatch 'bulk-toggle-selected-threads'
 
   selectAll: ->
-    @dispatch 'select-all'
+    @dispatch 'select-all-threads'
 
   selectNone: ->
-    @dispatch 'select-none'
+    @dispatch 'deselect-all-threads'
 
   selectUnread: ->
-    @dispatch 'select-unread'
+    @dispatch 'select-unread-threads'
 
   selectRead: ->
-    @dispatch 'select-read'
+    @dispatch 'select-read-threads'
 
   composeMessage: ->
     @dispatch 'compose-message'
-

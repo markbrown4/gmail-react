@@ -41,27 +41,35 @@ gulp.task('styles', function() {
 
 gulp.task('components', function() {
   return gulp.src(paths.components.src)
-    .pipe(cjsx().on('error', gutil.log))
+    .pipe(cjsx())
+    .on('error', gutil.log)
+    .on('error', gutil.beep)
     .pipe(concat('components.js'))
     .pipe(gulp.dest(paths.components.dest));
 });
 
 gulp.task('stores', function() {
   return gulp.src(paths.stores.src)
-    .pipe(coffee().on('error', gutil.log))
+    .pipe(coffee())
+    .on('error', gutil.log)
+    .on('error', gutil.beep)
     .pipe(concat('stores.js'))
     .pipe(gulp.dest(paths.stores.dest));
 });
 
 gulp.task('coffee', function() {
   return gulp.src(paths.coffee.src)
-    .pipe(coffee().on('error', gutil.log))
+    .pipe(coffee())
+    .on('error', gutil.log)
+    .on('error', gutil.beep)
     .pipe(gulp.dest(paths.coffee.dest));
 });
 
 gulp.task('cjsx', function() {
   return gulp.src(paths.cjsx.src)
-    .pipe(cjsx().on('error', gutil.log))
+    .pipe(cjsx())
+    .on('error', gutil.log)
+    .on('error', gutil.beep)
     .pipe(gulp.dest(paths.cjsx.dest));
 });
 

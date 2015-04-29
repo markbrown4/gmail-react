@@ -1,3 +1,4 @@
+
 @Message = React.createClass
   getInitialState: ->
     open: false
