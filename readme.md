@@ -224,7 +224,7 @@ React encourages us to break down our interface into a hierarchy of small compon
 > For communication between two components that don't have a parent-child relationship, you can set up your own global event system. Subscribe to events in componentDidMount(), unsubscribe in componentWillUnmount(), and call setState() when you receive an event.
 > http://facebook.github.io/react/tips/communicate-between-components.html
 
-This(Option 2) seems like a better fit for our SubHeader component, it doesn't tie our data flow to the structure of our HTML(parent > child components) and makes routing simpler - The SubHeader can stay put in a main layout and listen for data changes.
+This seems like a better fit for our SubHeader component.  It doesn't tie our data flow to our HTML structure and makes routing simpler, the SubHeader can stay put in a main layout and listen for data changes.
 
 ## Flux
 
@@ -333,7 +333,7 @@ And that's it, a wonderfully naive implementation of Flux.
 
 [react-router]() seems to be the most popular solution for routing in React apps so we'll focus on that.  It has named routes that can be nested, when a path is matched it renders a component into `<RouteHandler />`
 
-`coffee
+```coffee
 Route = ReactRouter.Route
 RouteHandler = ReactRouter.RouteHandler
 Redirect = ReactRouter.Redirect
@@ -360,26 +360,26 @@ routes = (
 document.addEventListener "DOMContentLoaded", ->
   ReactRouter.run routes, (Handler)->
     React.render(<Handler/>, document.body)
-`
+```
 
 It has a Link component for generating links to named routes
 
-`coffee
+```coffee
 Link = ReactRouter.Link
 
 Nav = React.createClass
   render: ->
     <Link to="threads">Inbox</Link>
     <Link to="thread" params={id: 1}>Number 1</Link>
-`
+```
 
 It has a mixin *ReactRouter.State* for getting access to params in the url.
 
-`coffee
+```coffee
 ThreadDetail = React.createClass
   mixins: [ReactRouter.State]
 
   componentDidMount: ->
     id = @getParams().id
     InboxActions.loadThread(id)
-`
+```
