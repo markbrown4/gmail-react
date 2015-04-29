@@ -234,6 +234,7 @@ This is where things get a little more tricky, Flux is a pattern of single direc
 
 - Components initiate Actions
 - Actions dispatch an event with a unique name and payload
+- Actions are a good place to put communication with the server
 - Stores are our Models/Collections, they listen for dispatched events, update themselves and tell the world that they have changed
 - Controller-Views are components that listen for changes on the store, fetch any data they need and pass it down to child components
 
@@ -279,10 +280,10 @@ threads = []
 MicroEvent.mixin(ThreadStore)
 
 toggleSelected = (id)->
-  thread = _.find @threads, (thread)-> thread.id == id
+  thread = _.find threads, (t)-> t.id == id
   thread.selected = !thread.selected
 
-  @trigger 'change'
+  ThreadStore.trigger 'change'
 
 Dispatcher.register
   'toggle-selected': (id)-> toggleSelected(id)
@@ -313,7 +314,7 @@ ThreadList = React.createClass
     </ul>
 ```
 
-The Dispatcher we'll be using is just an event registry, Stores *register* events they want to know about, Actions *trigger* those events.
+The Dispatcher we'll be using is just an event registry, Stores *register* events they care about, Actions *trigger* those events.
 ```coffee
 # dispatcher.coffee
 Dispatcher =
@@ -324,11 +325,61 @@ Dispatcher =
 MicroEvent.mixin(Dispatcher)
 ```
 
-> The [Facebook Dispatcher](http://facebook.github.io/flux/docs/actions-and-the-dispatcher.html#content) is quite a different implementation than this, it uses Promises, runs callbacks in order and supports control flow with *waitFor* e.g. Store A can wait Store B's callbacks to run before it's own.
+> The [Facebook Dispatcher](http://facebook.github.io/flux/docs/actions-and-the-dispatcher.html#content) is quite a different implementation than this, it uses Promises, runs callbacks in order and supports control flow with *waitFor* e.g. Store A can wait for Store B's callbacks to run before it's own.
 
 And that's it, a wonderfully naive implementation of Flux.
 
 ## Routing
 
-[react-router]() seems to be the most popular solution for routing in React apps so we'll focus on that.
+[react-router]() seems to be the most popular solution for routing in React apps so we'll focus on that.  It has named routes that can be nested, when a path is matched it renders a component into `<RouteHandler />`
 
+`coffee
+Route = ReactRouter.Route
+RouteHandler = ReactRouter.RouteHandler
+Redirect = ReactRouter.Redirect
+
+App = React.createClass
+  render: ->
+    <div id="wrapper">
+      <Header />
+      <SubHeader />
+      <Nav />
+      <div id="content">
+        <RouteHandler />
+      </div>
+    </div>
+
+routes = (
+  <Route handler={App}>
+    <Route name="threads" path="threads" handler={ThreadList} />
+    <Route name="thread" path="threads/:id" handler={ThreadDetail} />
+    <Redirect from="" to="threads" />
+  </Route>
+)
+
+document.addEventListener "DOMContentLoaded", ->
+  ReactRouter.run routes, (Handler)->
+    React.render(<Handler/>, document.body)
+`
+
+It has a Link component for generating links to named routes
+
+`coffee
+Link = ReactRouter.Link
+
+Nav = React.createClass
+  render: ->
+    <Link to="threads">Inbox</Link>
+    <Link to="thread" params={id: 1}>Number 1</Link>
+`
+
+It has a mixin *ReactRouter.State* for getting access to params in the url.
+
+`coffee
+ThreadDetail = React.createClass
+  mixins: [ReactRouter.State]
+
+  componentDidMount: ->
+    id = @getParams().id
+    InboxActions.loadThread(id)
+`
