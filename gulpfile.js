@@ -15,7 +15,7 @@ var paths = {
     dest: 'app/css'
   },
   components: {
-    src:  'app/coffee/components/*.cjsx',
+    src:  'app/coffee/components/**/*.cjsx',
     dest: 'app/js'
   },
   stores: {
