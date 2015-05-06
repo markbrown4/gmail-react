@@ -1,11 +1,5 @@
 
 @BulkOptionsMenu = React.createClass
-  getInitialState: ->
-    open: false
-
-  toggleMenu: (event)->
-    @setState open: !@state.open
-
   bulkToggleSelected: (event)->
     event.stopPropagation()
 
@@ -24,14 +18,11 @@
     InboxActions.selectUnread()
 
   render: ->
-    checkBoxClasses = React.addons.classSet
+    checkBoxClasses = classNames
       'all-selected': @props.allSelected
       'some-selected': @props.someSelected
 
-    menuClasses = React.addons.classSet
-      active: @state.open
-
-    <div className={"drop-down btn " + menuClasses} onClick={@toggleMenu}>
+    <DropDown className="btn">
       <a className={"check " + checkBoxClasses} onClick={@bulkToggleSelected}></a>
       <Icon name='down' />
       <ul>
@@ -40,4 +31,4 @@
         <li><a onClick={@selectRead}>Read</a></li>
         <li><a onClick={@selectUnread}>Unread</a></li>
       </ul>
-    </div>
+    </DropDown>

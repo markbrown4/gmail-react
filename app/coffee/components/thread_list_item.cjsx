@@ -12,13 +12,13 @@ smartName = Filters.smartName
   render: ->
     lastMessage = @props.lastMessage
 
-    threadClasses = React.addons.classSet
+    threadClasses = classNames
       unread: @props.unread
       selected: @props.selected
 
     peopleList = for person, i in @props.participants
       <span key={"thread-#{@props.id}-#{i}"} className="name unread">
-        { smartName(person, @props.messageCount == 1) }
+        { smartName(person, @props.messageCount == 1) + (if i == @props.participants.length - 1 then '' else ', ') }
       </span>
 
     <li className={ threadClasses }>

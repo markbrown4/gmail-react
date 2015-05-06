@@ -2,7 +2,7 @@
 @ThreadDetail = React.createClass
   mixins: [ReactRouter.State]
   getInitialState: ->
-    ThreadStore.getState().activeThread
+    messages: []
 
   componentDidMount: ->
     id = @getParams().id
@@ -17,10 +17,10 @@
 
   render: ->
     <div id="thread">
-      <h1>{ if @state.messages.length > 0 then @state.messages[0].subject else ''}</h1>
+      <h1>{ if @state.messages.length > 0 then @state.messages[0].subject else '' }</h1>
       <ul className="messages">
-        { for message in @state.messages
-          <Message key={ 'message-' + message.id } {...message} />
+        { for message, i in @state.messages
+          <Message key={ 'message-' + message.id }  last={i == @state.messages.length - 1} {...message} />
         }
       </ul>
       <div className="reply">

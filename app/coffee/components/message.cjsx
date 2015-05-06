@@ -1,28 +1,32 @@
 
+{ smartDate, timeAgo } = Filters
+
 @Message = React.createClass
   getInitialState: ->
     open: false
 
   toggleOpen: (event)->
+    return if @props.last
     @setState open: !@state.open
 
   render: ->
-    hiddenClass = if @state.open then '' else 'hide'
-    bodyHtml = if @state.open then @props.body else @props.snippet
+    open = @state.open or @props.last
+    hiddenClass = if open then '' else 'hide'
+    bodyHtml = if open then @props.body else @props.snippet
 
-    <li className={ 'active' if @state.open } onClick={ @toggleOpen }>
+    <li className={ 'active' if open } onClick={ @toggleOpen }>
       <div className="thread-tools">
-        <time>{ @props.createdAt } ({ @props.createdAt })</time>
+        <time>{ smartDate(@props.createdAt) } ({ timeAgo(@props.createdAt) })</time>
         <div className={ 'split-btn ' + hiddenClass }>
-          <a className="btn"><img src="images/icons/reply.png" /></a>
-          <div className="drop-down btn btn-mini">
-            <img src="images/icons/down.png" />
+          <a className="btn"><img className="icon" src="images/icons/reply.png" width="13" height="12" /></a>
+          <DropDown className="btn btn-mini">
+            <img className="icon" src="images/icons/down.png" width="7" height="4" />
             <ul className="align-right">
               <li><a>Reply</a></li>
               <li><a>Reply all</a></li>
               <li><a>Forward</a></li>
             </ul>
-          </div>
+          </DropDown>
         </div>
       </div>
       <img className="avatar" src={ @props.from.avatarUrl } />

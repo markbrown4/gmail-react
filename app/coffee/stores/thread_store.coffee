@@ -1,5 +1,5 @@
 threads = []
-activeThread = { messages: [] }
+activeThread = null
 paging = {}
 
 @ThreadStore =
@@ -16,6 +16,7 @@ emitChange = ->
   ThreadStore.trigger 'change'
 
 loadThreads = ->
+  activeThread = null
   reqwest "/api/threads/index.json", (data)->
     threads = data
     paging =
