@@ -11,6 +11,8 @@ App = React.createClass
       <div id="content">
         <RouteHandler />
       </div>
+      <Composer />
+      <Flash />
     </div>
 
 routes = (
