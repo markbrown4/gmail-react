@@ -1,6 +1,8 @@
 
-@Header = React.createClass
+App.Components.Header = React.createClass
   render: ->
+    { DropDown } = App.Components
+
     <div id="header">
       <span id="logo"><img src="images/logo.png" /></span>
       <DropDown className="account-nav">

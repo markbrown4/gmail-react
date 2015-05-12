@@ -1,7 +1,5 @@
 
-@InboxActions =
-  dispatch: (eventName, obj)->
-    Dispatcher.trigger eventName, obj
+App.Actions.InboxActions = App.createActions
 
   loadThreads: ->
     @dispatch 'load-threads'

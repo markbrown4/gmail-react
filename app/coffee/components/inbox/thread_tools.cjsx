@@ -1,5 +1,7 @@
 
-@ThreadTools = React.createClass
+{ InboxActions } = App.Actions
+
+App.Components.ThreadTools = React.createClass
   archive: (event)->
     InboxActions.archiveSelected()
 
@@ -10,6 +12,8 @@
     InboxActions.deleteSelected()
 
   render: ->
+    { Icon } = App.Components
+
     display = if @props.someSelected then 'block' else 'none'
 
     <div className="split-btn" style={ display: display }>

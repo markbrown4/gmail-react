@@ -1,11 +1,27 @@
 
-@MessageStore =
-  newMessage: {}
+message = {}
+states = {
+  composing: false
+}
 
-  composeNew: ->
-    newMessage: {}
+App.Stores.MessageStore = MessageStore = App.createStore
+  getState: ->
+    message: message
+    states: states
 
-MicroEvent.mixin(MessageStore)
+composeNew = ->
+  message = {
+    fromAccount: currentUser.accounts[0]
+  }
+  states.composing = true
 
-Dispatcher.register
-  'compose-message': (id)-> MessageStore.composeNew()
+  MessageStore.emitChange()
+
+updateFromAccount = (account)->
+  message.fromAccount = account
+
+  MessageStore.emitChange()
+
+App.Dispatcher.register
+  'compose-message': (id)-> composeNew()
+  'composer-update-from-account': (account)-> updateFromAccount(account)

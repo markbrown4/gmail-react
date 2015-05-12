@@ -2,18 +2,13 @@ threads = []
 activeThread = null
 paging = {}
 
-@ThreadStore =
+App.Stores.ThreadStore = ThreadStore = App.createStore
   getState: ->
     threads: threads
     activeThread: activeThread
     paging: paging
     allSelected: allSelected()
     someSelected: someSelected()
-
-MicroEvent.mixin(ThreadStore)
-
-emitChange = ->
-  ThreadStore.trigger 'change'
 
 loadThreads = ->
   activeThread = null
@@ -24,13 +19,13 @@ loadThreads = ->
       to: data.length
       count: data.length
 
-    emitChange()
+    ThreadStore.emitChange()
 
 loadThread = (id)->
   reqwest "/api/threads/#{id}.json", (data)=>
     activeThread = data
 
-    emitChange()
+    ThreadStore.emitChange()
 
 someSelected = ->
   selected = false
@@ -55,7 +50,7 @@ toggleSelected = (id)->
   thread = _.find threads, (thread)-> thread.id == id
   thread.selected = !thread.selected
 
-  emitChange()
+  ThreadStore.emitChange()
 
 bulkToggleSelected = ->
   if someSelected()
@@ -67,27 +62,27 @@ selectAll = ->
   for thread in threads
     thread.selected = true
 
-  emitChange()
+  ThreadStore.emitChange()
 
 selectNone = ->
   for thread in threads
     thread.selected = false
 
-  emitChange()
+  ThreadStore.emitChange()
 
 selectRead = ->
   for thread in threads
     thread.selected = !thread.unread
 
-  emitChange()
+  ThreadStore.emitChange()
 
 selectUnread = ->
   for thread in threads
     thread.selected = thread.unread
 
-  emitChange()
+  ThreadStore.emitChange()
 
-Dispatcher.register
+App.Dispatcher.register
   'load-threads': -> loadThreads()
   'load-thread': (id)-> loadThread(id)
   'toggle-selected-threads': (id)-> toggleSelected(id)

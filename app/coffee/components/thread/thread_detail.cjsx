@@ -1,5 +1,8 @@
 
-@ThreadDetail = React.createClass
+{ ThreadStore } = App.Stores
+{ InboxActions } = App.Actions
+
+App.Components.ThreadDetail = React.createClass
   mixins: [ReactRouter.State]
   getInitialState: ->
     messages: []
@@ -16,6 +19,8 @@
     @setState ThreadStore.getState().activeThread
 
   render: ->
+    { Message } = App.Components
+
     <div id="thread">
       <h1>{ if @state.messages.length > 0 then @state.messages[0].subject else '' }</h1>
       <ul className="messages">

@@ -1,7 +1,7 @@
 
-{ smartDate, timeAgo } = Filters
+{ smartDate, timeAgo } = App.Filters
 
-@Message = React.createClass
+App.Components.Message = React.createClass
   getInitialState: ->
     open: false
 
@@ -10,6 +10,8 @@
     @setState open: !@state.open
 
   render: ->
+    { DropDown } = App.Components
+
     open = @state.open or @props.last
     hiddenClass = if open then '' else 'hide'
     bodyHtml = if open then @props.body else @props.snippet

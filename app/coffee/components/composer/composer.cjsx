@@ -1,10 +1,28 @@
 
-@Composer = React.createClass
+{ MessageStore } = App.Stores
+{ ComposerActions, AppActions } = App.Actions
+
+App.Components.Composer = React.createClass
   getInitialState: ->
-    open: true
+    message: {
+      fromAccount: currentUser.accounts[0]
+    }
+    open: false
     activeSection: false
     bccActive: false
     ccActive: false
+
+  componentDidMount: ->
+    MessageStore.bind 'change', @onChange
+
+  componentWillUnmount: ->
+    MessageStore.unbind 'change', @onChange
+
+  onChange: ->
+    state = MessageStore.getState()
+    @setState message: state.message
+    if state.states.composing
+      @setState open: true
 
   close: ->
     @setState open: false
@@ -19,13 +37,17 @@
     @setState activeSection: section
 
   updateFromAccount: (account)->
-    ''
+    ComposerActions.updateFromAccount(account)
 
   send: ->
-    console.log 'yep'
     @setState open: false
+    AppActions.showFlash
+      message: "Sending"
+      timeout: 3000
 
   render: ->
+    { DropDown } = App.Components
+
     <div id="compose" className={ classNames(hide: !@state.open) }>
       <div className="header">
         <a className="close" onClick={@close}>×</a>
@@ -59,12 +81,16 @@
             <a onClick={@activateBCC} className={ classNames("bcc", { hide: @state.bccActive }) }>Bcc</a>
             <a onClick={@activateCC} className={ classNames("cc", { hide: @state.ccActive }) }>Cc</a>
             <DropDown className="from-address">
-              <span>Mark Brown &lt;markbrown4@gmail.com&gt;</span>
+              <span>
+                { "#{ @state.message.fromAccount.firstName } #{ @state.message.fromAccount.lastName } <#{ @state.message.fromAccount.email }> " }
+              </span>
               <img src="images/icons/down.png" width="7" height="4" />
               <ul className="align-right">
               { for account in currentUser.accounts
                 <li>
-                  <a onClick={@updateFromAccount.bind(@, account)}>Mark Brown &lt;markbrown4@gmail.com&gt;</a>
+                  <a onClick={@updateFromAccount.bind(@, account)}>
+                    { "#{ account.firstName } #{ account.lastName } <#{ account.email }>" }
+                  </a>
                 </li>
               }
               </ul>

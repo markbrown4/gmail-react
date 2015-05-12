@@ -1,9 +1,9 @@
 
-Link = ReactRouter.Link
-smartDate = Filters.smartDate
-smartName = Filters.smartName
+{ Link } = ReactRouter
+{ smartDate, smartName } = App.Filters
+{ InboxActions } = App.Actions
 
-@ThreadListItem = React.createClass
+App.Components.ThreadListItem = React.createClass
   toggleSelected: (event)->
     event.preventDefault()
 

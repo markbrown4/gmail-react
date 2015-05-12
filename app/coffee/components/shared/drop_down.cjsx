@@ -1,5 +1,5 @@
 
-@DropDown = React.createClass
+App.Components.DropDown = React.createClass
   getInitialState: ->
     open: false
 

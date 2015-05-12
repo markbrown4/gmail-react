@@ -9,9 +9,11 @@
     "bower": "*",
     "gulp": "*",
     "gulp-autoprefixer": "*",
-    "gulp-cjsx": "^2.0.0",
-    "gulp-coffee-react-transform": "0.0.2",
-    "gulp-concat": "^2.5.2",
+    "gulp-coffee": "*",
+    "gulp-cjsx": "*",
+    "gulp-coffee-react-transform": "*",
+    "gulp-include": "*",
+    "gulp-concat": "*",
     "gulp-react": "*",
     "gulp-sass": "*",
     "gulp-uglify": "*",
@@ -23,5 +25,8 @@
     "prestart": "npm install",
     "assets": "gulp",
     "start": "http-server ./app -a 0.0.0.0 -p 8000"
+  },
+  "devDependencies": {
+    "gulp-if": "^1.2.5"
   }
 }

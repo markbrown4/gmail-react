@@ -1,8 +1,11 @@
-Route = ReactRouter.Route
-RouteHandler = ReactRouter.RouteHandler
-Redirect = ReactRouter.Redirect
 
-App = React.createClass
+{ Route, RouteHandler, Redirect, Handler } = ReactRouter
+{ Header, SubHeader, Nav, Composer, Flash, ThreadList, ThreadDetail } = App.Components
+
+AppLayout = React.createClass
+  onChange: ->
+    @setState AppStore.getState()
+
   render: ->
     <div id="wrapper">
       <Header />
@@ -16,7 +19,7 @@ App = React.createClass
     </div>
 
 routes = (
-  <Route handler={App}>
+  <Route handler={AppLayout}>
     <Route name="threads" path="threads" handler={ThreadList} />
     <Route name="thread" path="threads/:id" handler={ThreadDetail} />
     <Redirect from="" to="threads" />

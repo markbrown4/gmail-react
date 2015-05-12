@@ -1,7 +1,9 @@
 
+{ InboxActions } = App.Actions
+{ ThreadStore } = App.Stores
 { Link } = ReactRouter
 
-@SubHeader = React.createClass
+App.Components.SubHeader = React.createClass
   getInitialState: ->
     ThreadStore.getState()
 
@@ -18,6 +20,8 @@
     InboxActions.loadThreads()
 
   render: ->
+    { Pagination, Icon, BulkOptionsMenu, ThreadTools } = App.Components
+
     <div id="sub-header">
       <h1 className="app-name"><span>Re</span>Mail</h1>
       <Pagination {...@state.paging} />

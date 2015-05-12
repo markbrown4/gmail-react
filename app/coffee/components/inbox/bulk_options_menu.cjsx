@@ -1,5 +1,7 @@
 
-@BulkOptionsMenu = React.createClass
+{ InboxActions } = App.Actions
+
+App.Components.BulkOptionsMenu = React.createClass
   bulkToggleSelected: (event)->
     event.stopPropagation()
 
@@ -18,6 +20,8 @@
     InboxActions.selectUnread()
 
   render: ->
+    { DropDown, Icon } = App.Components
+
     checkBoxClasses = classNames
       'all-selected': @props.allSelected
       'some-selected': @props.someSelected

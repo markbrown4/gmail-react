@@ -1,5 +1,7 @@
 
-@Pagination = React.createClass
+{ InboxActions } = App.Actions
+
+App.Components.Pagination = React.createClass
   nextPage: (event)->
     InboxActions.nextPage()
 
@@ -7,6 +9,8 @@
     InboxActions.previousPage()
 
   render: ->
+    { Icon } = App.Components
+
     <div className="paging">
       <strong>{@props.from}-{@props.to}</strong>
       <span> of </span>
