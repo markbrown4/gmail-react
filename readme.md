@@ -387,8 +387,9 @@ Facebook has been drip-feeding their implementation for a while now, starting wi
 Because there hasn't been an all encompassing framework people have tried many different ways of working with React and Flux and had to stumble around a little bit, every man and his dog has made an addon to solve some specific problem but it's made it little difficult to get started.
 
 I found these posts helpful early on to understand React and Flux
-http://blog.andrewray.me/reactjs-for-stupid-people/
-http://blog.andrewray.me/flux-for-stupid-people/
+
+- http://blog.andrewray.me/reactjs-for-stupid-people/
+- http://blog.andrewray.me/flux-for-stupid-people/
 
 After playing with React/Flux for a month or so here's my stupid framework using some constructs that help me to build applications
 https://github.com/markbrown4/stupid_flux
@@ -403,6 +404,6 @@ Flux has been the bigger change for me though, it's made me stop and think about
 
 There's been good learnings so far though, so dig in.
 
-https://facebook.github.io/react/
-https://facebook.github.io/flux/docs/overview.html
+- https://facebook.github.io/react/
+- https://facebook.github.io/flux/docs/overview.html
 
