@@ -391,12 +391,11 @@ https://github.com/markbrown4/stupid_flux
 
 React and Flux are no joke, they're tried & tested solutions to problems that you're bound to run into when building applications of a reasonable size with a team of more than one person.  They're also simple ideas with a tiny API, so you can understand all of the pieces in a day of hacking.
 
-React is a smart rendering layer and way to break up your app into re-usable components, it makes sense and does it's job well.  Being able to look in a single file and make a change and know that there's no side-effects is a beautiful thing.
+React is a smart rendering layer and way to break up your app into re-usable components, it makes sense and does it's job well.  Being able to make a change to a single component, and know that your change has no side-effects is a beautiful thing.  Because most components are dumb, taking in data and outputting DOM they're much simpler to maintain than needing to keep a mental tab on DOM changes, data syncing issues, timing issues, scope, etc..
 
-Flux has been the bigger change for me though, it's made me stop and think about what data and state belongs where and has made things more predictable and easier to reason about.  It's made things easier to test by better separating concerns.  With Flux there's a few layers of indirection which seem like excessive code when you start out, these extra layers, not having 'one right way' to do things and having to build a bunch of things myself has slowed me down.
+Flux has been the bigger change for me though, it's made me stop and think about what data and state belongs where and has made things more predictable and easier to reason about.  It's made things easier to test by better separating concerns.  With Flux there's a few layers of indirection which seem like excessive code when you start out, these extra layers, not having 'one right way' to do things and having to build a bunch of things myself has slowed me down.  Whilst it's easier and quicker to get something done in a framework like Angular I prefer React for it's simplicity and being easier to reason about.
 
 There's been good learnings so far though, so dig in.
 
 - https://facebook.github.io/react/
 - https://facebook.github.io/flux/docs/overview.html
-
