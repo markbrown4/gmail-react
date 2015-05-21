@@ -211,14 +211,6 @@ React encourages us to break down our interface into a hierarchy of small compon
     <Thread />
   </ThreadList>
 </Inbox>
-
-<ThreadDetail>
-  <SubHeader />
-  <Nav />
-  <ThreadList>
-    <Thread />
-  </ThreadList>
-</ThreadDetail>
 ```
 
 > For communication between two components that don't have a parent-child relationship, you can set up your own global event system. Subscribe to events in componentDidMount(), unsubscribe in componentWillUnmount(), and call setState() when you receive an event.
