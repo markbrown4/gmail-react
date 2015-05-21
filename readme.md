@@ -384,9 +384,9 @@ You can use these basic constructs(Stores, Actions, Components, Router) to build
 
 Facebook has been drip-feeding their implementation for a while now, starting with React to get people used to the view layer, then with Flux to structure data flow, soon they'll release Flow which will help us define data we need at a component level and combining them into a structure like GraphQL that they use for their API's.
 
-Because there hasn't been an all encompassing framework people have tried many different ways of working with React and Flux and had to stumble around a little bit, every man and his dog has made an addon to solve some specific problem but it's made it little difficult to get started.
+Because there hasn't been an all encompassing framework people have tried many different ways of working with React and Flux and had to stumble around a little bit, every man and his dog has made an addon to solve some specific problem but it's made it difficult to get started.
 
-I found these posts helpful early on to understand React and Flux
+I found @andrewray's posts helpful early on to understand React and Flux:
 
 - http://blog.andrewray.me/reactjs-for-stupid-people/
 - http://blog.andrewray.me/flux-for-stupid-people/
