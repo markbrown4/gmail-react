@@ -1,7 +1,5 @@
 # ReMail
-A React.js tutorial building out a Gmail clone.
-
-http://webdevrefinery.com/forums/topic/13835-reactjs/
+An exploration of React.js and Flux building out some of Gmail's UI.
 
 Facebook's open source tool for rendering Views that's been generating a heap of noise in the community lately. No prior knowledge of React is necessary.
 
@@ -21,6 +19,8 @@ In a separate process run a server
 npm run live-server
 ```
 You should see a bunch of familiar Gmail elements on the screen - you'll be bringing that static page to life and responding to events, just like Pinocchio.
+
+You can checkout the master branch to see the working demo.
 
 ## Our first component
 
@@ -391,7 +391,7 @@ I found these posts helpful early on to understand React and Flux
 - http://blog.andrewray.me/reactjs-for-stupid-people/
 - http://blog.andrewray.me/flux-for-stupid-people/
 
-After playing with React/Flux for a month or so here's my stupid framework using some constructs that help me to build applications
+After playing with React/Flux for a month or so here's my stupid framework using some constructs that help me to build applications.
 
 https://github.com/markbrown4/stupid_flux
 
