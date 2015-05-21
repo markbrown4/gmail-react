@@ -201,7 +201,7 @@ Let's move our attention to the `<div id="sub-header">` element next, it's state
 1. We could add a parent component Inbox above our ThreadList and SubHeader to maintain this shared state that can pass data all the way down to SubHeader and Thread through props.
 2. SubHeader and ThreadList could both have a responsibility to fetch data upon changes and re-render
 
-React encourages us to break down our interface into a hierarchy of small components that given specific props and state render consistently.  Option 1 might look something like this:
+React encourages us to break down our interface into a hierarchy of small components that given specific props and state render consistently.  Option 1 would mean that Inbox recieves the data from the store and passes it to SubHeader and ThreadList.  Option 2 has both SubHeader and ThreadList fetching data from the store.
 
 ```xml
 <Inbox>
