@@ -25,6 +25,6 @@
     "postinstall": "bower install",
     "prestart": "npm install",
     "start": "gulp",
-    "live-server": "cd app & live-server"
+    "live-server": "cd app && live-server"
   }
 }
