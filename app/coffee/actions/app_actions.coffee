@@ -1,6 +1,6 @@
 
-App.Actions.AppActions = App.createActions
-  showFlash: (data)->
-    @dispatch 'new-flash-message',
+App.Actions.FlashActions = App.createActions
+  newMessage: (data)->
+    @dispatch 'flash-new-message',
       message: data.message
       timeout: data.timeout

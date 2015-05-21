@@ -1,16 +1,10 @@
 
 { MessageStore } = App.Stores
-{ ComposerActions, AppActions } = App.Actions
+{ ComposerActions, FlashActions } = App.Actions
 
 App.Components.Composer = React.createClass
   getInitialState: ->
-    message: {
-      fromAccount: currentUser.accounts[0]
-    }
-    open: false
-    activeSection: false
-    bccActive: false
-    ccActive: false
+    MessageStore.getState()
 
   componentDidMount: ->
     MessageStore.bind 'change', @onChange
@@ -20,18 +14,25 @@ App.Components.Composer = React.createClass
 
   onChange: ->
     state = MessageStore.getState()
-    @setState message: state.message
-    if state.states.composing
-      @setState open: true
+
+    @setState
+      message: state.message
+      open: state.states.open
 
   close: ->
     @setState open: false
 
   activateBCC: ->
-    @setState bccActive: true
+    @setState bccActive: true, ->
+      @refs["bcc_input"].getDOMNode().focus()
 
   activateCC: ->
-    @setState ccActive: true
+    @setState ccActive: true, ->
+      @refs["cc_input"].getDOMNode().focus()
+
+  activateTo: ->
+    @setState activeSection: 'to', ->
+      @refs["to_input"].getDOMNode().focus()
 
   activateSection: (section)->
     @setState activeSection: section
@@ -41,8 +42,8 @@ App.Components.Composer = React.createClass
 
   send: ->
     @setState open: false
-    AppActions.showFlash
-      message: "Sending"
+    FlashActions.newMessage
+      message: "Sending..."
       timeout: 3000
 
   render: ->
@@ -55,25 +56,25 @@ App.Components.Composer = React.createClass
       </div>
       <div>
         <div className={ classNames(hide: @state.activeSection == 'to') }>
-          <input onFocus={@activateSection.bind(@, 'to')} className="full" name="recipients" placeholder="Recipients" />
+          <input onFocus={@activateTo} className="full" name="recipients" placeholder="Recipients" />
         </div>
         <div className={ classNames(hide: @state.activeSection != 'to') }>
           <div className="input">
-            <label for="message_to">To</label>
+            <label htmlFor="message_to">To</label>
             <div className="fit">
-              <input focus-when="active_section == 'to'" className="full" id="message_to" />
+              <input ref="to_input" className="full" id="message_to" />
             </div>
           </div>
           <div className={ classNames("input", { hide: !@state.ccActive }) }>
-            <label for="message_cc">Cc</label>
+            <label htmlFor="message_cc">Cc</label>
             <div className="fit">
-              <input focus-when="cc_active" className="full" id="message_cc" />
+              <input ref="cc_input" className="full" id="message_cc" />
             </div>
           </div>
           <div className={ classNames("input", {hide: !@state.bccActive}) }>
-            <label for="message_bcc">Bcc</label>
+            <label htmlFor="message_bcc">Bcc</label>
             <div className="fit">
-              <input focus-when="bcc_active" className="full" for="message_bcc" />
+              <input ref="bcc_input" className="full" id="message_bcc" />
             </div>
           </div>
           <div>
@@ -87,7 +88,7 @@ App.Components.Composer = React.createClass
               <img src="images/icons/down.png" width="7" height="4" />
               <ul className="align-right">
               { for account in currentUser.accounts
-                <li>
+                <li key={ 'account-' + account.id }>
                   <a onClick={@updateFromAccount.bind(@, account)}>
                     { "#{ account.firstName } #{ account.lastName } <#{ account.email }>" }
                   </a>

@@ -1,6 +1,5 @@
 
 App.Actions.InboxActions = App.createActions
-
   loadThreads: ->
     @dispatch 'load-threads'
 
@@ -27,3 +26,7 @@ App.Actions.InboxActions = App.createActions
 
   composeMessage: ->
     @dispatch 'compose-message'
+
+  previousPage: -> ''
+
+  nextPage: -> ''

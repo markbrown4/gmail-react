@@ -1,7 +1,12 @@
 
-message = {}
+message = {
+  fromAccount: currentUser.accounts[0]
+}
 states = {
-  composing: false
+  open: false
+  activeSection: false
+  bccActive: false
+  ccActive: false
 }
 
 App.Stores.MessageStore = MessageStore = App.createStore
@@ -13,8 +18,7 @@ composeNew = ->
   message = {
     fromAccount: currentUser.accounts[0]
   }
-  states.composing = true
-
+  states.open = true
   MessageStore.emitChange()
 
 updateFromAccount = (account)->

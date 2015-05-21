@@ -16,11 +16,11 @@ cd gmail-react
 git checkout origin/start
 npm start
 ```
-In a separate process watch our assets for changes
+In a separate process run a server
 ```
-npm run assets
+npm run live-server
 ```
-Hit http://localhost:8000/ in your favourite browser and you should see a bunch of familiar Gmail elements on the screen - you'll be bringing that static page to life and responding to events, just like Pinocchio.
+You should see a bunch of familiar Gmail elements on the screen - you'll be bringing that static page to life and responding to events, just like Pinocchio.
 
 ## Our first component
 
@@ -60,7 +60,7 @@ JSX compiles a mix of JavaScript and HTML into React calls, e.g.
 React.createElement("span", {"className": "subject"}, text)
 ```
 
-**C**JSX allows us to use CoffeeScript within curly braces {} rather than JavaScript.
+**C**JSX allows us to write CoffeeScript within curly braces {} rather than JavaScript.
 
 Notice we're using **className** in the place of class, that's because React uses the DOM's property names rather than the HTML attribute names for building these nodes.
 
@@ -163,7 +163,7 @@ ThreadItem = React.createClass
     thread = @props.thread
     lastMessage = thread.lastMessage
 
-    threadClasses = React.addons.classSet
+    threadClasses = classNames
       unread: thread.unread
       selected: @state.selected
 
@@ -184,7 +184,7 @@ ThreadItem = React.createClass
     </li>
 ```
 
-*React.addons.classSet* is a handy utility method for adding conditional classes.
+classNames is a handy little function by Jed Watson for adding conditional classes.
 
 ## The Magic
 
@@ -199,9 +199,9 @@ A components render method should not have any side effects, it should take stat
 Let's move our attention to the `<div id="sub-header">` element next, it's state needs to be kept in sync with the main content area - when selecting threads we want our SubHeader to show us tools we can use on that selection.  We also want checking the box in the sub-header to change state on our threads.  The ThreadList and ThreadDetail views also display different content in the SubHeader, there's a few options:
 
 1. We could add a parent component Inbox above our ThreadList and SubHeader to maintain this shared state that can pass data all the way down to SubHeader and Thread through props.
-2. SubHeader and ThreadList both have a responsibility to fetch data upon changes and re-render
+2. SubHeader and ThreadList could both have a responsibility to fetch data upon changes and re-render
 
-React encourages us to break down our interface into a hierarchy of small components that given specific props and state render consistently.  Option 1 looks something like this:
+React encourages us to break down our interface into a hierarchy of small components that given specific props and state render consistently.  Option 1 might look something like this:
 
 ```xml
 <Inbox>
@@ -238,15 +238,12 @@ This is where things get a little more tricky, Flux is a pattern of single direc
 - Stores are our Models/Collections, they listen for dispatched events, update themselves and tell the world that they have changed
 - Controller-Views are components that listen for changes on the store, fetch any data they need and pass it down to child components
 
-Our **SubHeader** and **ThreadList** components are example of Controller-Views, it's a regular component that has the special job of fetching data from our Store and wanting to know when it's data changes so it can re-render and flow it's data down through to clild components.
+Our **SubHeader** and **ThreadList** components are examples of Controller-Views, they are regular components that have the special job of fetching data from our Store and wanting to know when it's data changes so it can re-render and flow it's data down through to child components.
 
 ### A basic Flux implementation
 
-*Perhaps Daniel15 can tell us if we're doing anything that isn't The Flux Way™ and we can adapt it.*
-
-A Component initiates an Action
+A Component can initiate an Action
 ```coffee
-# components/thread_list_item.cjsx
 ThreadListItem = React.createClass
   select: (event)->
     event.preventDefault()
@@ -260,20 +257,18 @@ ThreadListItem = React.createClass
 
 Actions dispatch an event with a name and payload
 ```coffee
-# actions.coffee
 InboxActions =
   toggleSelected: (id)->
    Dispatcher.trigger 'toggle-selected', id
 
 ```
 
-Stores are our Models/Collections, they listen for dispatched events, update themselves and emit that they have changed. Some care is taken to only expose public getters to enforce that all changes happen through dispatched events.
+Stores are our Models/Collections, they listen for dispatched events, update themselves and emit that they have changed. Some care is taken to only expose public getters to enforce that all data changes happen through dispatched events.
 
 ```coffee
-# stores/thread_store.coffee
 threads = []
 
-@ThreadStore =
+ThreadStore =
   getState: ->
     threads: threads
 
@@ -292,7 +287,6 @@ Dispatcher.register
 Controller-Views are components that listen for changes on the store, fetch any data they need and pass it down to child components
 
 ```coffee
-# components/thread_list.cjsx
 ThreadList = React.createClass
   getInitialState: ->
     ThreadStore.getState()
@@ -314,7 +308,7 @@ ThreadList = React.createClass
     </ul>
 ```
 
-The Dispatcher we'll be using is just an event registry, Stores *register* events they care about, Actions *trigger* those events.
+The Dispatcher we'll be using is just an event emitter, Stores *register* events they care about, Actions *trigger* those events.
 ```coffee
 # dispatcher.coffee
 Dispatcher =
@@ -383,3 +377,32 @@ ThreadDetail = React.createClass
     id = @getParams().id
     InboxActions.loadThread(id)
 ```
+
+### Frameworks
+
+You can use these basic constructs(Stores, Actions, Components, Router) to build an application but you'll want some kind of framework to reduce boilerplate and to make it a pleasant experience so that you're writing code with your ideal API.
+
+Facebook has been drip-feeding their implementation for a while now, starting with React to get people used to the view layer, then with Flux to structure data flow, soon they'll release Flow which will help us define data we need at a component level and combining them into a structure like GraphQL that they use for their API's.
+
+Because there hasn't been an all encompassing framework people have tried many different ways of working with React and Flux and had to stumble around a little bit, every man and his dog has made an addon to solve some specific problem but it's made it little difficult to get started.
+
+I found these posts helpful early on to understand React and Flux
+http://blog.andrewray.me/reactjs-for-stupid-people/
+http://blog.andrewray.me/flux-for-stupid-people/
+
+After playing with React/Flux for a month or so here's my stupid framework using some constructs that help me to build applications
+https://github.com/markbrown4/stupid_flux
+
+### Conclusions
+
+React and Flux are no joke, they're tried & tested solutions to problems that you're bound to run into when building applications of a reasonable size with a team of more than one person.  They're also simple ideas with a tiny API, so you can understand all of the pieces in a day of hacking.
+
+React is a smart rendering layer and way to break up your app into re-usable components, it makes sense and does it's job well.  Being able to look in a single file and make a change and know that there's no side-effects is a beautiful thing.
+
+Flux has been the bigger change for me though, it's made me stop and think about what data and state belongs where and has made things more predictable and easier to reason about.  It's made things easier to test by better separating concerns.  With Flux there's a few layers of indirection which seem like excessive code when you start out, these extra layers, not having 'one right way' to do things and having to build a bunch of things myself has slowed me down.
+
+There's been good learnings so far though, so dig in.
+
+https://facebook.github.io/react/
+https://facebook.github.io/flux/docs/overview.html
+

@@ -42,8 +42,9 @@ li {
   top: 46px;
   left: 50%;
   .inner {
-    white-space: nowrap;
+    position: relative;
     left: -50%;
+    white-space: nowrap;
     background: #F9EDBE;
     border: 1px solid #f0c36d;
     color: #222;

@@ -5,14 +5,16 @@ App.Stores.FlashStore = FlashStore = App.createStore
   getState: ->
     message: message
 
-addFlash = (data)->
+flashTimeout = null
+updateMessage = (data)->
   message = data.message
-  setTimeout ->
-    message = ''
-    emitChange()
-  , data.timeout || 3000
-
   FlashStore.emitChange()
 
+  clearTimeout(flashTimeout) if flashTimeout?
+  flashTimeout = setTimeout ->
+    message = ''
+    FlashStore.emitChange()
+  , data.timeout || 1000
+
 App.Dispatcher.register
-  'new-flash-message': (data)-> addFlash(data)
+  'flash-new-message': (data)-> updateMessage(data)
