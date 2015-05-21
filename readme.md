@@ -392,6 +392,7 @@ I found these posts helpful early on to understand React and Flux
 - http://blog.andrewray.me/flux-for-stupid-people/
 
 After playing with React/Flux for a month or so here's my stupid framework using some constructs that help me to build applications
+
 https://github.com/markbrown4/stupid_flux
 
 ### Conclusions
