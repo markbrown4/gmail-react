@@ -1,5 +1,9 @@
 
 App.Components.Header = React.createClass
+
+  switchAccount: ->
+    ''
+
   render: ->
     { DropDown } = App.Components
 
@@ -8,9 +12,13 @@ App.Components.Header = React.createClass
       <DropDown className="account-nav">
         <img className="avatar" src="images/avatars/me.jpg" />
         <ul className="align-right">
-          <li><a>Mark Brown &lt;markbrown4@gmail.com&gt;</a></li>
-          <li><a>Mark Brown &lt;mark@inspire9.com&gt;</a></li>
-          <li><a>Mark Brown &lt;mark@adioso.com&gt;</a></li>
+          { for account in currentUser.accounts
+            <li key={ 'account-' + account.id }>
+              <a onclick={@switchAccount.bind(@, account)}>
+                { "#{ account.firstName } #{ account.lastName } <#{ account.email }>" }
+              </a>
+            </li>
+          }
         </ul>
       </DropDown>
       <form className="search">
