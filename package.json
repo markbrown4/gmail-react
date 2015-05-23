@@ -2,7 +2,6 @@
   "name": "gmail-react",
   "version": "0.0.0",
   "description": "",
-
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -19,12 +18,14 @@
     "gulp-uglify": "*",
     "gulp-util": "*",
     "gulp-if": "*",
-    "live-server": "*"
+    "live-server": "*",
+    "json-server": "*"
   },
   "scripts": {
     "postinstall": "bower install",
     "prestart": "npm install",
     "start": "gulp",
-    "live-server": "cd app && live-server"
+    "live-server": "cd app && live-server",
+    "json-server": "json-server db.json"
   }
 }

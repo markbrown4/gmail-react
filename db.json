@@ -1,0 +1,196 @@
+{
+  "current_user": {
+    "currentAccount": {
+      "id": 1,
+      "email": "markbrown4@remail.com",
+      "firstName": "Mark",
+      "lastName": "Brown",
+      "avatarUrl": "/images/avatars/me.jpg"
+    },
+    "accounts": [
+      {
+        "id": 1,
+        "email": "markbrown4@remail.com",
+        "firstName": "Mark",
+        "lastName": "Brown",
+        "avatarUrl": "/images/avatars/me.jpg"
+      },
+      {
+        "id": 2,
+        "email": "blackmamba@remail.com",
+        "firstName": "Beatrix",
+        "lastName": "Kiddo",
+        "avatarUrl": "/images/avatars/uma.jpg"
+      },
+      {
+        "id": 3,
+        "email": "budlight@remail.com",
+        "firstName": "Budd",
+        "lastName": "",
+        "avatarUrl": "/images/avatars/budd.jpg"
+      },
+      {
+        "id": 4,
+        "email": "quentin@remail.com",
+        "firstName": "Quentin",
+        "lastName": "Tarantino",
+        "avatarUrl": "/images/avatars/quentin.jpg"
+      }
+    ]
+  },
+  "threads": [
+    {
+      "id": 1,
+      "messages": [
+        {
+          "id": 1,
+          "from": {
+            "id": 2,
+            "firstName": "Beatrix",
+            "lastName": "Kiddo",
+            "email": "blackmamba@remail.com",
+            "avatarUrl": "/images/avatars/uma.jpg"
+          },
+          "to": [
+            {
+              "id": 1,
+              "firstName": "Mark",
+              "lastName": "Brown",
+              "email": "markbrown4@remail.com"
+            }
+          ],
+          "unread": false,
+          "subject": "Bill",
+          "snippet": "I have vermin to kill.",
+          "body": "<p>I have vermin to kill.</p>",
+          "createdAt": 1429947612160
+        },
+        {
+          "id": 2,
+          "from": {
+            "id": 1,
+            "firstName": "Mark",
+            "lastName": "Brown",
+            "email": "markbrown4@remail.com",
+            "avatarUrl": "/images/avatars/me.jpg"
+          },
+          "to": [
+            {
+              "id": 2,
+              "firstName": "Beatrix",
+              "lastName": "Kiddo",
+              "email": "blackmamba@remail.com"
+            }
+          ],
+          "unread": false,
+          "subject": "RE: Bill",
+          "snippet": "You must have big rats if you need Hattori Hanzo's steel.",
+          "body": "<p>You must have big rats if you need Hattori Hanzo's steel.</p>",
+          "createdAt": 1409068800000
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "messages": [
+        {
+          "id": 3,
+          "from": {
+            "id": 3,
+            "firstName": "Budd",
+            "lastName": "",
+            "email": "budlight@remail.com",
+            "avatarUrl": "/images/avatars/budd.jpg"
+          },
+          "to": [
+            {
+              "id": 1,
+              "firstName": "Mark",
+              "lastName": "Brown",
+              "email": "markbrown4@remail.com"
+            }
+          ],
+          "unread": false,
+          "subject": "Kiddo",
+          "snippet": "I don't dodge guilt and I don't Jew out of paying my comeuppance.",
+          "body": "<p>I don't dodge guilt and I don't Jew out of paying my comeuppance.</p>",
+          "createdAt": 1409068800000
+        },
+        {
+          "id": 4,
+          "from": {
+            "id": 1,
+            "firstName": "Mark",
+            "lastName": "Brown",
+            "email": "markbrown4@remail.com",
+            "avatarUrl": "/images/avatars/me.jpg"
+          },
+          "to": [
+            {
+              "id": 3,
+              "firstName": "Budd",
+              "lastName": "",
+              "email": "budlight@remail.com"
+            }
+          ],
+          "unread": false,
+          "subject": "RE: Kiddo",
+          "snippet": "Can't we just... forget the past?",
+          "body": "<p>Can't we just... forget the past?</p>",
+          "createdAt": 1409068800000
+        },
+        {
+          "id": 5,
+          "from": {
+            "id": 3,
+            "firstName": "Budd",
+            "lastName": "",
+            "email": "budlight@remail.com",
+            "avatarUrl": "/images/avatars/budd.jpg"
+          },
+          "to": [
+            {
+              "id": 1,
+              "firstName": "Mark",
+              "lastName": "Brown",
+              "email": "markbrown4@remail.com"
+            }
+          ],
+          "unread": true,
+          "subject": "RE: Kiddo",
+          "snippet": "That woman, deserves her revenge and... We deserve to die. But then again, so does she. So, I guess we'll just see. Won't we?",
+          "body": "<p>That woman, deserves her revenge and...<br><br>We deserve to die. But then again, so does she.<br><br>So, I guess we'll just see. Won't we?</p>",
+          "createdAt": 1409068800000
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "messages": [
+        {
+          "id": 6,
+          "from": {
+            "id": 2,
+            "firstName": "Beatrix",
+            "lastName": "Kiddo",
+            "email": "blackmamba@remail.com",
+            "avatarUrl": "/images/avatars/uma.jpg"
+          },
+          "to": [
+            {
+              "id": 1,
+              "firstName": "Mark",
+              "lastName": "Brown",
+              "email": "markbrown4@remail.com"
+            }
+          ],
+          "unread": true,
+          "subject": "My fox force five joke",
+          "snippet": "Vincent, You still wanna hear it?",
+          "body": "<p>Vincent,<br><br>You still wanna hear it?</p>",
+          "createdAt": 1409366556530
+        }
+      ]
+    }
+  ]
+}

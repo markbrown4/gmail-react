@@ -29,7 +29,7 @@ App.Components.ThreadDetail = React.createClass
         }
       </ul>
       <div className="reply">
-        <img className="avatar" src={currentUser.avatarUrl} />
+        <img className="avatar" src={currentAccount.avatarUrl} />
         <div className="reply-box">
           <p>Click here to <a href>Reply</a>, <a href>Reply to all</a> or <a href>Forward</a></p>
         </div>

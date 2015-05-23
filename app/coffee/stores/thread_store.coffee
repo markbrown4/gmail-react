@@ -10,22 +10,34 @@ App.Stores.ThreadStore = ThreadStore = App.createStore
     allSelected: allSelected()
     someSelected: someSelected()
 
-loadThreads = ->
+updateComputedProperties = (data)->
+  for thread in data
+    thread.unread = _.some thread.messages, (m)-> m.unread
+
+    participants = []
+    for message in thread.messages
+      participants.push message.from
+      for person in message.to
+        participants.push person
+
+    thread.participants = _.uniq participants, (p)-> p.id
+
+  data
+
+loadThreadsSuccess = (data)->
   activeThread = null
-  reqwest "/api/threads/index.json", (data)->
-    threads = data
-    paging =
-      from: 1
-      to: data.length
-      count: data.length
+  threads = updateComputedProperties(data)
+  paging =
+    from: 1
+    to: data.length
+    count: data.length
 
-    ThreadStore.emitChange()
+  ThreadStore.emitChange()
 
-loadThread = (id)->
-  reqwest "/api/threads/#{id}.json", (data)=>
-    activeThread = data
+loadThreadSuccess = (data)->
+  activeThread = data
 
-    ThreadStore.emitChange()
+  ThreadStore.emitChange()
 
 someSelected = ->
   selected = false
@@ -83,8 +95,8 @@ selectUnread = ->
   ThreadStore.emitChange()
 
 App.Dispatcher.register
-  'load-threads': -> loadThreads()
-  'load-thread': (id)-> loadThread(id)
+  'load-threads-success': (data)-> loadThreadsSuccess(data)
+  'load-thread-success': (data)-> loadThreadSuccess(data)
   'toggle-selected-threads': (id)-> toggleSelected(id)
   'bulk-toggle-selected-threads': -> bulkToggleSelected()
   'select-all-threads': -> selectAll()

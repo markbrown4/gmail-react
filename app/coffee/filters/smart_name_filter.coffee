@@ -1,6 +1,6 @@
 
 App.Filters.smartName = (person, fullName=true)->
-  if currentUser.email == person.email
+  if currentAccount.email == person.email
     'me'
   else if fullName
     "#{person.firstName} #{person.lastName}".trim()

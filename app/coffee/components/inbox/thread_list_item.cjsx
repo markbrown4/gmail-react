@@ -10,7 +10,7 @@ App.Components.ThreadListItem = React.createClass
     InboxActions.toggleSelected @props.id
 
   render: ->
-    lastMessage = @props.lastMessage
+    lastMessage = _.last @props.messages
 
     threadClasses = classNames
       unread: @props.unread

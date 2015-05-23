@@ -1,10 +1,20 @@
 
-App.Actions.InboxActions = App.createActions
+{ ThreadResource } = App.Resources
+
+App.Actions.InboxActions = InboxActions = App.createActions
   loadThreads: ->
     @dispatch 'load-threads'
+    ThreadResource.query().then (data)->
+      InboxActions.dispatch 'load-threads-success', data
+    , (data)->
+      InboxActions.dispatch 'load-threads-error', data
 
   loadThread: (id)->
-    @dispatch 'load-thread', id
+    @dispatch 'load-thread'
+    ThreadResource.get(id).then (data)->
+      InboxActions.dispatch 'load-thread-success', data
+    , (data)->
+      InboxActions.dispatch 'load-thread-error', data
 
   toggleSelected: (id)->
     @dispatch 'toggle-selected-threads', id
@@ -30,3 +40,4 @@ App.Actions.InboxActions = App.createActions
   previousPage: -> ''
 
   nextPage: -> ''
+

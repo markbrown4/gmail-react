@@ -1,22 +1,38 @@
 
+{ AppStore } = App.Stores
+{ AppActions } = App.Actions
 { Route, RouteHandler, Redirect, Handler } = ReactRouter
 { Header, SubHeader, Nav, Composer, Flash, ThreadList, ThreadDetail } = App.Components
 
 AppLayout = React.createClass
+  getInitialState: ->
+    AppStore.getState()
+
+  componentDidMount: ->
+    AppActions.loadCurrentUser()
+
+    AppStore.bind 'change', @onChange
+
+  componentWillUnmount: ->
+    AppStore.unbind 'change', @onChange
+
   onChange: ->
     @setState AppStore.getState()
 
   render: ->
-    <div id="wrapper">
-      <Header />
-      <SubHeader />
-      <Nav />
-      <div id="content">
-        <RouteHandler />
+    unless currentUser?
+      <p>Loading...</p>
+    else
+      <div id="wrapper">
+        <Header />
+        <SubHeader />
+        <Nav />
+        <div id="content">
+          <RouteHandler />
+        </div>
+        <Composer />
+        <Flash />
       </div>
-      <Composer />
-      <Flash />
-    </div>
 
 routes = (
   <Route handler={AppLayout}>

@@ -1,5 +1,5 @@
 
-{ MessageStore } = App.Stores
+{ MessageStore, AppStore } = App.Stores
 { ComposerActions, FlashActions } = App.Actions
 
 App.Components.Composer = React.createClass

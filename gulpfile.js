@@ -21,10 +21,11 @@ var paths = {
     files:  [
       'app/coffee/framework/framework.coffee',
       'app/coffee/filters/**/*.coffee',
+      'app/coffee/resources/**/*.coffee',
       'app/coffee/stores/**/*.coffee',
       'app/coffee/actions/**/*.coffee',
       'app/coffee/components/**/*.cjsx',
-      'app/coffee/routes.cjsx'
+      'app/coffee/app.cjsx'
     ],
     dest: 'app/js'
   }

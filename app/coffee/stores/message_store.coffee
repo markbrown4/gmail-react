@@ -1,7 +1,5 @@
 
-message = {
-  fromAccount: currentUser.accounts[0]
-}
+message = {}
 states = {
   open: false
   activeSection: false
@@ -11,6 +9,8 @@ states = {
 
 App.Stores.MessageStore = MessageStore = App.createStore
   getState: ->
+    message.fromAccount = currentUser unless message.fromAccount?
+
     message: message
     states: states
 
@@ -29,3 +29,4 @@ updateFromAccount = (account)->
 App.Dispatcher.register
   'compose-message': (id)-> composeNew()
   'composer-update-from-account': (account)-> updateFromAccount(account)
+  'current-user-load-success': (data)-> updateFromAccount(data)

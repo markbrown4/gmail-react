@@ -1,8 +1,10 @@
 
+{ AppActions } = App.Actions
+
 App.Components.Header = React.createClass
 
-  switchAccount: ->
-    ''
+  switchAccount: (account)->
+    AppActions.switchAccount(account)
 
   render: ->
     { DropDown } = App.Components
@@ -10,11 +12,11 @@ App.Components.Header = React.createClass
     <div id="header">
       <span id="logo"><img src="images/logo.png" /></span>
       <DropDown className="account-nav">
-        <img className="avatar" src="images/avatars/me.jpg" />
+        <img className="avatar" src={currentAccount.avatarUrl} />
         <ul className="align-right">
           { for account in currentUser.accounts
             <li key={ 'account-' + account.id }>
-              <a onclick={@switchAccount.bind(@, account)}>
+              <a onClick={@switchAccount.bind(@, account)}>
                 { "#{ account.firstName } #{ account.lastName } <#{ account.email }>" }
               </a>
             </li>
