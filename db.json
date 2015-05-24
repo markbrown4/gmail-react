@@ -41,6 +41,23 @@
   "threads": [
     {
       "id": 1,
+      "unread": false,
+      "participants": [
+        {
+          "id": 2,
+          "firstName": "Beatrix",
+          "lastName": "Kiddo",
+          "email": "blackmamba@remail.com",
+          "avatarUrl": "/images/avatars/uma.jpg"
+        },
+        {
+          "id": 1,
+          "firstName": "Mark",
+          "lastName": "Brown",
+          "email": "markbrown4@remail.com",
+          "avatarUrl": "/images/avatars/me.jpg"
+        }
+      ],
       "messages": [
         {
           "id": 1,
@@ -92,6 +109,23 @@
     },
     {
       "id": 2,
+      "unread": true,
+      "participants": [
+        {
+          "id": 3,
+          "firstName": "Budd",
+          "lastName": "",
+          "email": "budlight@remail.com",
+          "avatarUrl": "/images/avatars/budd.jpg"
+        },
+        {
+          "id": 1,
+          "firstName": "Mark",
+          "lastName": "Brown",
+          "email": "markbrown4@remail.com",
+          "avatarUrl": "/images/avatars/me.jpg"
+        }
+      ],
       "messages": [
         {
           "id": 3,
@@ -166,6 +200,16 @@
     },
     {
       "id": 3,
+      "unread": true,
+      "participants": [
+        {
+          "id": 2,
+          "firstName": "Beatrix",
+          "lastName": "Kiddo",
+          "email": "blackmamba@remail.com",
+          "avatarUrl": "/images/avatars/uma.jpg"
+        }
+      ],
       "messages": [
         {
           "id": 6,

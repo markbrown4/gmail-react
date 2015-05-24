@@ -4,6 +4,8 @@ App.Components.DropDown = React.createClass
     open: false
 
   toggle: (event)->
+    event.stopPropagation()
+
     @setState open: !@state.open
 
   render: ->

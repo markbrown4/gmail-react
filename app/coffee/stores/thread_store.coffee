@@ -10,23 +10,9 @@ App.Stores.ThreadStore = ThreadStore = App.createStore
     allSelected: allSelected()
     someSelected: someSelected()
 
-updateComputedProperties = (data)->
-  for thread in data
-    thread.unread = _.some thread.messages, (m)-> m.unread
-
-    participants = []
-    for message in thread.messages
-      participants.push message.from
-      for person in message.to
-        participants.push person
-
-    thread.participants = _.uniq participants, (p)-> p.id
-
-  data
-
 loadThreadsSuccess = (data)->
   activeThread = null
-  threads = updateComputedProperties(data)
+  threads = data
   paging =
     from: 1
     to: data.length
