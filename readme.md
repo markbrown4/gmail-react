@@ -320,9 +320,7 @@ And that's it, a wonderfully naive implementation of Flux.
 [react-router]() seems to be the most popular solution for routing in React apps so we'll focus on that.  It has named routes that can be nested, when a path is matched it renders a component into `<RouteHandler />`
 
 ```coffee
-Route = ReactRouter.Route
-RouteHandler = ReactRouter.RouteHandler
-Redirect = ReactRouter.Redirect
+{ Route, RouteHandler, Redirect } = ReactRouter
 
 App = React.createClass
   render: ->
@@ -351,7 +349,7 @@ document.addEventListener "DOMContentLoaded", ->
 It has a Link component for generating links to named routes
 
 ```coffee
-Link = ReactRouter.Link
+{ Link } = ReactRouter
 
 Nav = React.createClass
   render: ->
