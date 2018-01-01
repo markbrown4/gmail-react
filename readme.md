@@ -1,33 +1,51 @@
 # ReMail
+
 An exploration of React.js and Flux building out some of Gmail's UI.
 
 Facebook's open source tool for rendering Views that's been generating a heap of noise in the community lately. No prior knowledge of React is necessary.
 
 ## Prerequisites
 
-You'll need npm installed and an intermediate knowledge of JavaScript and a tolerance or love of CoffeeScript.
+You'll need Node installed and an intermediate knowledge of JavaScript and a tolerance or love of CoffeeScript.
 
 ## Install
+
+You can see the finished product in the `master` branch.
+
 ```
 git clone https://github.com/markbrown4/gmail-react
 cd gmail-react
-git checkout origin/start
 npm start
 ```
-In a separate process run a server
+
+In two separate processes run `json-server` and `live-server`.
+
 ```
+npm run json-server
 npm run live-server
 ```
-You should see a bunch of familiar Gmail elements on the screen - you'll be bringing that static page to life and responding to events, just like Pinocchio.
 
-You can checkout the master branch to see the working demo.
+You should see a bunch of familiar Gmail elements on the screen.  Have a click around the UI and explore the components, actions and stores for an overview of how the pieces in a React application fit together.
+
+## Back to the beginning
+
+Check out the `start` branch and restart our processes
+
+```
+git reset --hard
+git checkout origin/start
+npm start
+npm run live-server
+```
+
+Ok, let's bring this static page to life and responding to events, just like Pinocchio.
 
 ## Our first component
 
 Let's remove the entire `<ul id="threads">` element from *index.html* and make a React component to build it dynamically.
 
 ```coffee
-# components/thread_list.cjsx
+# components/inbox/thread_list.cjsx
 ThreadList = React.createClass
   render: ->
     <ul id="threads">
@@ -69,7 +87,7 @@ Notice we're using **className** in the place of class, that's because React use
 Components can render other components.
 
 ```coffee
-# components/thread_list.cjsx
+# components/inbox/thread_list.cjsx
 ThreadList = React.createClass
   render: ->
     <ul id="threads">
@@ -101,7 +119,7 @@ Data is stored in a components *props* and *state* objects, when either of these
 > State should contain data that a component's event handlers may change to trigger a UI update.
 
 ```coffee
-# components/thread_list.cjsx
+# components/inbox/thread_list.cjsx
 ThreadList = React.createClass
   getInitialState: ->
     threads: []
@@ -137,6 +155,8 @@ ThreadItem = React.createClass
         <span className="body">- { lastMessage.snippet }</span>
       </a>
     </li>
+
+React.render <ThreadList />, document.getElementById('content')
 ```
 
 *componentDidMount* is one of Reacts [Lifecycle methods](http://facebook.github.io/react/docs/component-specs.html) that is run just after a component is first rendered in the DOM.  Our ThreadList fetches data from the api, calls setState which re-renders it, this state is passed down to ThreadItem through an attribute(thread) which ThreadItem can access through props(props.thread).
@@ -148,7 +168,7 @@ Let's wire up our checkboxes to toggle a *selected* state on our threads.
 React supports all of the usual events, we can listen for them in our components, toggle state and re-render.  http://facebook.github.io/react/docs/events.html
 
 ```coffee
-# components/thread_list.cjsx
+# components/inbox/thread_list.cjsx
 ...
 ThreadItem = React.createClass
   getInitialState: ->
