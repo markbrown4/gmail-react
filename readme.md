@@ -14,9 +14,12 @@ cd gmail-react
 git checkout origin/start
 npm start
 ```
-In a separate process run a server
+In two separate processes run the following servers. The live-server hosts the client on *localhost:8080* while the json-server hosts the database on *localhost:3000* for json requests from live-server.
 ```
 npm run live-server
+```
+```
+npm run json-server
 ```
 You should see a bunch of familiar Gmail elements on the screen - you'll be bringing that static page to life and responding to events, just like Pinocchio.
 
